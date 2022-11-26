@@ -30,6 +30,10 @@ func _process(delta):
 		anim = "IdleFront"
 	
 	if abs(vel.x) > speed/5:
+		if vel.x > 0:
+			$Player.scale.x = 1
+		else:
+			$Player.scale.x = -1
 		anim = "Run"
 	if vel.y > speed/5:
 		anim = "RunFront"
