@@ -69,3 +69,14 @@ func _process(delta):
 		slotVel += vel.length()/2000+0.1
 		slotVel *= 0.99/(delta+1)
 		$Slots.rotation_degrees += slotVel
+	
+	for child in get_parent().get_parent().get_node("Lights").get_children():
+		child.visible = false
+	for i in range(360):
+		$lightDetect.rotation_degrees = i
+		$lightDetect.force_raycast_update()
+		var body = $lightDetect.get_collider()
+		if body:
+			if body.get_parent().get_parent().name == "Lights":
+				body.get_parent().visible = true
+	

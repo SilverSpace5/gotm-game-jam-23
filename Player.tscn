@@ -153,6 +153,9 @@ position = Vector2( -0.25, 0 )
 scale = Vector2( 3, 3 )
 z_index = 5
 
+[node name="CollisionShape2D" parent="Light/Collision" index="0"]
+disabled = true
+
 [node name="Cart" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, -11.25 )
@@ -174,7 +177,24 @@ modulate = Color( 0, 0.717647, 1, 1 )
 position = Vector2( 15, 0 )
 scale = Vector2( 0.25, 0.25 )
 
+[node name="CollisionShape2D" parent="Slots/Slot1/Collision" index="0"]
+disabled = true
+
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
 modulate = Color( 0, 0.717647, 1, 1 )
 position = Vector2( -15, 0 )
 scale = Vector2( 0.25, 0.25 )
+
+[node name="CollisionShape2D" parent="Slots/Slot2/Collision" index="0"]
+disabled = true
+
+[node name="lightDetect" type="RayCast2D" parent="."]
+scale = Vector2( 10, 1 )
+enabled = true
+cast_to = Vector2( 0, 100 )
+collision_mask = 3
+collide_with_areas = true
+
+[editable path="Light"]
+[editable path="Slots/Slot1"]
+[editable path="Slots/Slot2"]
