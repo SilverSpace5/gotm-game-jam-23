@@ -72,8 +72,8 @@ func _process(delta):
 	
 	for child in get_parent().get_parent().get_node("Lights").get_children():
 		child.visible = false
-	for i in range(360):
-		$lightDetect.rotation_degrees = i
+	for i in range(360/3):
+		$lightDetect.rotation_degrees = i*3
 		$lightDetect.force_raycast_update()
 		var body = $lightDetect.get_collider()
 		if body:
