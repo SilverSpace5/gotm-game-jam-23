@@ -22,3 +22,13 @@ func _process(delta):
 			add_child(light)
 			light.position = tilePos*64+Vector2(32, 32)
 			light.scale = Vector2(8, 8)
+		for tilePos in get_parent().get_node("YSort/Objects").get_used_cells_by_id(23):
+			var light = load("res://Light.tscn").instance()
+			add_child(light)
+			light.position = tilePos*64+Vector2(32, 32)
+			light.scale = Vector2(8, 8)
+		for tilePos in get_parent().get_node("YSort/Objects").get_used_cells_by_id(25):
+			var light = load("res://Light.tscn").instance()
+			add_child(light)
+			light.position = tilePos*64+Vector2(32, 32)
+			light.scale = Vector2(8, 8)
