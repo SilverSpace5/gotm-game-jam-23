@@ -14,6 +14,10 @@ config/name="Gotm-game-jam- 23"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

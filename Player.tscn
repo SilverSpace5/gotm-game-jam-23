@@ -127,6 +127,7 @@ script = ExtResource( 2 )
 speed = 2000.0
 
 [node name="Player" type="Sprite" parent="."]
+position = Vector2( 0, 2.75 )
 texture = ExtResource( 1 )
 hframes = 15
 
@@ -141,7 +142,7 @@ anims/RunBack = SubResource( 6 )
 anims/RunFront = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -12 )
+position = Vector2( -0.5, -9.25 )
 shape = SubResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
