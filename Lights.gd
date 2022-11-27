@@ -4,6 +4,9 @@ tool
 var timer = 0
 export (bool) var update = false
 
+func _ready():
+	update = true
+
 func _process(delta):
 	if update:
 		update = false
