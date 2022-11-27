@@ -1,10 +1,19 @@
 extends KinematicBody2D
 
 export (float) var speed = 500
+export (bool) var minecart = false
 var vel = Vector2.ZERO
 var lastDir = "+x"
+var slotVel = 0
 
 func _process(delta):
+	
+	var bpo = get_parent().get_parent().get_node("BPO")
+	var currentBPO = bpo.get_cellv(bpo.world_to_map((position-Vector2(0, 32))/4))
+	minecart = currentBPO != -1
+	
+	if minecart:
+		speed *= 1.25
 	if Input.is_action_pressed("left"):
 		vel.x -= speed
 		lastDir = "-x"
@@ -21,6 +30,8 @@ func _process(delta):
 		vel.y += speed
 		lastDir = "-y"
 		$Player.scale.x = 1
+	if minecart:
+		speed /= 1.25
 	vel *= 0.5/(delta+1)
 	
 	var anim = "Idle"
@@ -35,10 +46,26 @@ func _process(delta):
 		else:
 			$Player.scale.x = -1
 		anim = "Run"
+		$Cart.frame = 0
 	if vel.y > speed/5:
 		anim = "RunFront"
+		$Cart.frame = 1
 	if vel.y < -speed/5:
 		anim = "RunBack"
+		$Cart.frame = 1
 	
-	$AnimationPlayer.play(anim)
+	$Cart.visible = minecart
+	if minecart:
+		$AnimationPlayer.stop()
+		$Player.frame = 15
+	else:
+		$AnimationPlayer.play(anim)
 	move_and_slide(vel)
+	if Input.is_mouse_button_pressed(1):
+		var oldRot = $Slots.rotation
+		$Slots.look_at(get_global_mouse_position())
+		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation, 0.5)
+	else:
+		slotVel += vel.length()/2000+0.1
+		slotVel *= 0.99/(delta+1)
+		$Slots.rotation_degrees += slotVel

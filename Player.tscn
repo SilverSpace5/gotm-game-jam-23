@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://Light.tscn" type="PackedScene" id=3]
+[ext_resource path="res://cart.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -126,11 +127,6 @@ scale = Vector2( 4, 4 )
 script = ExtResource( 2 )
 speed = 2000.0
 
-[node name="Player" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-offset = Vector2( 0, -14.034 )
-hframes = 16
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Idle = SubResource( 1 )
@@ -156,3 +152,29 @@ modulate = Color( 1, 1, 1, 0.784314 )
 position = Vector2( -0.25, 0 )
 scale = Vector2( 3, 3 )
 z_index = 5
+
+[node name="Cart" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -11.25 )
+texture = ExtResource( 4 )
+hframes = 3
+
+[node name="Player" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -14.034 )
+hframes = 16
+
+[node name="Slots" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.376471 )
+position = Vector2( -0.25, -10.75 )
+z_index = 5
+
+[node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
+modulate = Color( 0, 0.717647, 1, 1 )
+position = Vector2( 15, 0 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
+modulate = Color( 0, 0.717647, 1, 1 )
+position = Vector2( -15, 0 )
+scale = Vector2( 0.25, 0.25 )
