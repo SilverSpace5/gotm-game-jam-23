@@ -233,6 +233,7 @@ speed = 500.0
 modulate = Color( 0.290196, 0.219608, 0.105882, 1 )
 z_index = 5
 script = ExtResource( 5 )
+lightRadius = 10
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 6 )
