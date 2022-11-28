@@ -170,12 +170,12 @@ offset = Vector2( 0, -14.034 )
 hframes = 16
 
 [node name="Slots" type="Node2D" parent="."]
-modulate = Color( 1, 1, 1, 0.376471 )
+modulate = Color( 1, 1, 1, 0.25098 )
 position = Vector2( -0.25, -10.75 )
 z_index = 5
 
 [node name="Sword" type="Sprite" parent="Slots"]
-position = Vector2( 14.75, 0.75 )
+position = Vector2( 15, 0.75 )
 texture = ExtResource( 5 )
 
 [node name="Shield" type="Sprite" parent="Slots"]
@@ -183,7 +183,7 @@ position = Vector2( -15.25, 0 )
 texture = ExtResource( 6 )
 
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
-modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+modulate = Color( 0.294118, 0.121569, 0.121569, 0.392157 )
 position = Vector2( 15, 0 )
 scale = Vector2( 0.3, 0.3 )
 
@@ -191,7 +191,7 @@ scale = Vector2( 0.3, 0.3 )
 disabled = true
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
-modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+modulate = Color( 0.294118, 0.294118, 0.294118, 0.392157 )
 position = Vector2( -15, 0 )
 scale = Vector2( 0.3, 0.3 )
 

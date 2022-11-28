@@ -19,7 +19,7 @@ func _process(delta):
 			item = 0
 		else:
 			item = 1
-#add toggles to both
+
 	if Input.is_action_just_pressed("shield"):
 		if item == 2:
 			item = 0
@@ -30,14 +30,26 @@ func _process(delta):
 		slotVel += vel.length()/2000+0.01
 		slotVel *= 0.99/(delta+1)
 		$Slots.rotation_degrees += slotVel
+		$Slots/Slot1.modulate = Color(0.294, 0.294, 0.294)
+		$Slots/Slot2.modulate = Color(0.294, 0.294, 0.294)
+		$Slots/Shield.modulate.a = (1)
+		$Slots/Sword.modulate.a = (1)
 
 	if item == 1:
 		$Slots.look_at(get_global_mouse_position())
 		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation, 0.5)
+		$Slots/Slot1.modulate = Color(0.188, 0.294, 0.164)
+		$Slots/Slot2.modulate = Color(0.294, 0.121, 0.121)
+		$Slots/Sword.modulate.a = (1)
+		$Slots/Shield.modulate.a = (0.388)
 
 	if item == 2:
 		$Slots.look_at(get_global_mouse_position())
 		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation + 1.35 + 360, 0.5)
+		$Slots/Slot2.modulate = Color(0.188, 0.294, 0.164)
+		$Slots/Slot1.modulate = Color(0.294, 0.121, 0.121)
+		$Slots/Shield.modulate.a = (1)
+		$Slots/Sword.modulate.a = (0.388)
 
 	if minecart:
 		speed *= 1.25
@@ -89,7 +101,6 @@ func _process(delta):
 		$AnimationPlayer.play(anim)
 	move_and_slide(vel)
 
-	
 	for child in get_parent().get_parent().get_node("Lights").get_children():
 		child.visible = false
 	for i in range(360/3):
