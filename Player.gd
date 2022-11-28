@@ -14,11 +14,17 @@ func _process(delta):
 	minecart = currentBPO != -1
 	var oldRot = $Slots.rotation
 	
-	if Input.is_action_pressed("sword"):
-		item = 1
+	if Input.is_action_just_pressed("sword"):
+		if item == 1:
+			item = 0
+		else:
+			item = 1
 #add toggles to both
-	if Input.is_action_pressed("shield"):
-		item = 2
+	if Input.is_action_just_pressed("shield"):
+		if item == 2:
+			item = 0
+		else:
+			item = 2
 
 	if item == 0:
 		slotVel += vel.length()/2000+0.01
