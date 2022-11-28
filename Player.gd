@@ -5,13 +5,34 @@ export (bool) var minecart = false
 var vel = Vector2.ZERO
 var lastDir = "+x"
 var slotVel = 0
+var item = 0
 
 func _process(delta):
 	
 	var bpo = get_parent().get_parent().get_node("BPO")
 	var currentBPO = bpo.get_cellv(bpo.world_to_map((position-Vector2(0, 32))/4))
 	minecart = currentBPO != -1
+	var oldRot = $Slots.rotation
 	
+	if Input.is_action_pressed("sword"):
+		item = 1
+#add toggles to both
+	if Input.is_action_pressed("shield"):
+		item = 2
+
+	if item == 0:
+		slotVel += vel.length()/2000+0.01
+		slotVel *= 0.99/(delta+1)
+		$Slots.rotation_degrees += slotVel
+
+	if item == 1:
+		$Slots.look_at(get_global_mouse_position())
+		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation, 0.5)
+
+	if item == 2:
+		$Slots.look_at(get_global_mouse_position())
+		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation + 1.35 + 360, 0.5)
+
 	if minecart:
 		speed *= 1.25
 	if Input.is_action_pressed("left"):
@@ -61,14 +82,7 @@ func _process(delta):
 	else:
 		$AnimationPlayer.play(anim)
 	move_and_slide(vel)
-	if Input.is_mouse_button_pressed(1):
-		var oldRot = $Slots.rotation
-		$Slots.look_at(get_global_mouse_position())
-		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation, 0.5)
-	else:
-		slotVel += vel.length()/2000+0.1
-		slotVel *= 0.99/(delta+1)
-		$Slots.rotation_degrees += slotVel
+
 	
 	for child in get_parent().get_parent().get_node("Lights").get_children():
 		child.visible = false
@@ -79,4 +93,6 @@ func _process(delta):
 		if body:
 			if body.get_parent().get_parent().name == "Lights":
 				body.get_parent().visible = true
-	
+				
+	get_node("Slots/Sword").global_rotation = 0
+	get_node("Slots/Shield").global_rotation = 0
