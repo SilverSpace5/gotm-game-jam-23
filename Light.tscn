@@ -1,7 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[sub_resource type="CanvasItemMaterial" id=1]
-blend_mode = 1
+[sub_resource type="Shader" id=6]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*energy;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = SubResource( 6 )
+shader_param/energy = 1.0
 
 [sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1 )
@@ -16,7 +30,7 @@ fill_to = Vector2( 0.870833, 0.266667 )
 extents = Vector2( 2, 2 )
 
 [node name="Light" type="Sprite"]
-material = SubResource( 1 )
+material = SubResource( 7 )
 texture = SubResource( 5 )
 
 [node name="Collision" type="Area2D" parent="."]

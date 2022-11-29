@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://player.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -124,6 +124,36 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 3.5, 4 )
 
+[sub_resource type="Shader" id=9]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV);
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = SubResource( 9 )
+
+[sub_resource type="Shader" id=11]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV);
+}"
+
+[sub_resource type="ShaderMaterial" id=12]
+resource_local_to_scene = true
+shader = SubResource( 11 )
+
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 4, 4 )
 script = ExtResource( 2 )
@@ -151,6 +181,7 @@ smoothing_speed = 10.0
 [node name="Light" parent="." instance=ExtResource( 3 )]
 visible = false
 modulate = Color( 1, 1, 1, 0.784314 )
+material = SubResource( 10 )
 position = Vector2( -0.25, 0 )
 scale = Vector2( 3, 3 )
 z_index = 5
@@ -170,7 +201,6 @@ offset = Vector2( 0, -14.034 )
 hframes = 16
 
 [node name="Slots" type="Node2D" parent="."]
-modulate = Color( 1, 1, 1, 0.25098 )
 position = Vector2( -0.25, -10.75 )
 z_index = 5
 
@@ -183,20 +213,17 @@ position = Vector2( -15.25, 0 )
 texture = ExtResource( 6 )
 
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
-modulate = Color( 0.294118, 0.121569, 0.121569, 0.392157 )
-position = Vector2( 15, 0 )
-scale = Vector2( 0.3, 0.3 )
+material = SubResource( 12 )
+position = Vector2( 15.25, 1.5 )
+scale = Vector2( 0.226562, 0.226562 )
 
 [node name="CollisionShape2D" parent="Slots/Slot1/Collision" index="0"]
 disabled = true
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
-modulate = Color( 0.294118, 0.294118, 0.294118, 0.392157 )
-position = Vector2( -15, 0 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="Light" parent="Slots/Slot2" index="0"]
-modulate = Color( 0.588235, 0.588235, 0.588235, 0.333333 )
+material = SubResource( 12 )
+position = Vector2( -15.25, 1.5 )
+scale = Vector2( 0.226562, 0.226562 )
 
 [node name="CollisionShape2D" parent="Slots/Slot2/Collision" index="0"]
 disabled = true
