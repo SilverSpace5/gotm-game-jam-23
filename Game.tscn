@@ -259,7 +259,7 @@ position = Vector2( 235, 195 )
 speed = 500.0
 
 [node name="Goblin" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 49, 237 )
+position = Vector2( 275, -213 )
 speed = 10.0
 
 [node name="Goblin7" parent="nav/YSort" instance=ExtResource( 8 )]
@@ -280,6 +280,30 @@ speed = 10.0
 
 [node name="Goblin5" parent="nav/YSort" instance=ExtResource( 8 )]
 position = Vector2( -139, -1293 )
+speed = 10.0
+
+[node name="Goblin8" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( -84, -1493 )
+speed = 10.0
+
+[node name="Goblin9" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( 200, -1263 )
+speed = 10.0
+
+[node name="Goblin10" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( 169, -1476 )
+speed = 10.0
+
+[node name="Goblin11" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( 487, -1283 )
+speed = 10.0
+
+[node name="Goblin12" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( 175, -1056 )
+speed = 10.0
+
+[node name="Goblin13" parent="nav/YSort" instance=ExtResource( 8 )]
+position = Vector2( -180, -1081 )
 speed = 10.0
 
 [node name="Goblin6" parent="nav/YSort" instance=ExtResource( 8 )]
