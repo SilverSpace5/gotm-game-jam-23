@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Projectile.gd" type="Script" id=2]
+[ext_resource path="res://ProjectileSprite.gd" type="Script" id=3]
+[ext_resource path="res://slash.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1.5, 6.5 )
+
+[node name="Projectile" type="Area2D"]
+script = ExtResource( 2 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]

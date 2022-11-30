@@ -6,19 +6,49 @@ var vel = Vector2.ZERO
 var lastDir = "+x"
 var slotVel = 0
 var item = 0
+var health = 3
+var hit = 0
+onready var spawn = position
 
 func _process(delta):
-	
-	var bpo = get_parent().get_parent().get_node("BPO")
+	hit -= delta
+	if hit < -3:
+		health += 0.01
+		health = clamp(health, 0, 3)
+	if health <= 0:
+		position = spawn
+		health = 3
+	$Health.value += (100-health/3.0*100.0-$Health.value)/5
+	var bpo = get_parent().get_parent().get_parent().get_node("BPO")
 	var currentBPO = bpo.get_cellv(bpo.world_to_map((position-Vector2(0, 32))/4))
 	minecart = currentBPO != -1
 	var oldRot = $Slots.rotation
 	
-	if Input.is_action_pressed("attack") and not $Moves.is_playing():
+	if Input.is_action_just_pressed("attack") and not $Moves.is_playing():
 		if item == 1:
 			$Moves.play("Sword")
+			var proj = load("res://Projectile.tscn").instance()
+			proj.texture = load("res://slash.png")
+			proj.lifetime = 0.1
+			proj.speed = 10
+			proj.scale *= 6
+			proj.dir = $Slots.rotation_degrees
+			proj.position = $Slots/Sword.global_position
+			proj.name = "slash"
+			proj.ignore = ["Player"]
+			get_parent().add_child(proj)
 		if item == 2:
 			$Moves.play("Bow")
+			var proj = load("res://Projectile.tscn").instance()
+			proj.texture = load("res://arrow.png")
+			proj.lifetime = 1
+			proj.speed = 25
+			proj.scale *= 4
+			proj.dir = $Slots.rotation_degrees+180
+			proj.position = $Slots/Bow.global_position
+			proj.name = "arrow"
+			proj.ignore = ["Player"]
+			get_parent().add_child(proj)
 	
 	if Input.is_action_just_pressed("sword"):
 		if item == 1:
@@ -68,19 +98,19 @@ func _process(delta):
 	if Input.is_action_pressed("left"):
 		vel.x -= speed
 		lastDir = "-x"
-		$Player.scale.x = -1
+		$Player.scale.x = -4
 	if Input.is_action_pressed("right"):
 		vel.x += speed
 		lastDir = "+x"
-		$Player.scale.x = 1
+		$Player.scale.x = 4
 	if Input.is_action_pressed("up"):
 		vel.y -= speed
 		lastDir = "+y"
-		$Player.scale.x = 1
+		$Player.scale.x = 4
 	if Input.is_action_pressed("down"):
 		vel.y += speed
 		lastDir = "-y"
-		$Player.scale.x = 1
+		$Player.scale.x = 4
 	if minecart:
 		speed /= 1.25
 	vel *= 0.5/(delta+1)
@@ -93,9 +123,9 @@ func _process(delta):
 	
 	if abs(vel.x) > speed/5:
 		if vel.x > 0:
-			$Player.scale.x = 1
+			$Player.scale.x = 4
 		else:
-			$Player.scale.x = -1
+			$Player.scale.x = -4
 		anim = "Run"
 		$Cart.frame = 0
 	if vel.y > speed/5:
@@ -104,9 +134,38 @@ func _process(delta):
 	if vel.y < -speed/5:
 		anim = "RunBack"
 		$Cart.frame = 1
+		
+	if item != 0:
+		if get_global_mouse_position().x > position.x:
+			$Player.scale.x = 4
+		else:
+			$Player.scale.x = -4
+		
+		var disX = abs(get_global_mouse_position().x-position.x)
+		var disY = abs(get_global_mouse_position().y-position.y)
+		
+		if disX > disY:
+			if "Run" in anim:
+				anim = "Run"
+			else:
+				anim = "Idle"
+		if disY > disX:
+			$Player.scale.x = 4
+			if get_global_mouse_position().y > position.y:
+				if "Run" in anim:
+					anim = "RunFront"
+				else:
+					anim = "IdleFront"
+			else:
+				if "Run" in anim:
+					anim = "RunBack"
+				else:
+					anim = "IdleBack"
+		
 	
 	$Cart.visible = minecart
 	if minecart:
+		$Player.scale.x = 4
 		$AnimationPlayer.stop()
 		$Player.frame = 15
 	else:
@@ -129,5 +188,6 @@ func _process(delta):
 	if rot > 90 and rot < 270:
 		$Slots/Sword.scale.y = -1
 	$Slots/Bow.scale.y = $Slots/Sword.scale.y
+	
 #	get_node("Slots/Sword").global_rotation = 0
 #	get_node("Slots/Bow").global_rotation = 0
