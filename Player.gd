@@ -117,6 +117,8 @@ func _process(delta):
 #			if body.get_parent().get_parent().name == "Lights":
 #				body.get_parent().visible = true
 	
-	$Slots/Sword.flip_v = $Slots.rotation_degrees > 180
+	var rot = float(int($Slots.rotation_degrees*1000) % 360000) / 1000
+	$Slots/Sword.flip_v = rot > 90 and rot < 270
+	$Slots/Shield.flip_v = $Slots/Sword.flip_v
 #	get_node("Slots/Sword").global_rotation = 0
 #	get_node("Slots/Shield").global_rotation = 0

@@ -330,13 +330,13 @@ texture = ExtResource( 6 )
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 12 )
 position = Vector2( 14.5, 0.5 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.35, 0.35 )
 energy = 1
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 14 )
 position = Vector2( -15.75, 0.5 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.35, 0.35 )
 energy = 1
 
 [node name="lightDetect" type="RayCast2D" parent="."]
