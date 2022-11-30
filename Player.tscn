@@ -324,18 +324,18 @@ scale = Vector2( 1.05, 10 )
 texture = SubResource( 17 )
 
 [node name="Shield" type="Sprite" parent="Slots"]
-position = Vector2( -15.25, 0 )
+position = Vector2( -15.75, 0 )
 texture = ExtResource( 6 )
 
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 12 )
-position = Vector2( 15.25, 0 )
+position = Vector2( 14.5, 0.5 )
 scale = Vector2( 0.5, 0.5 )
 energy = 1
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 14 )
-position = Vector2( -15.25, 0 )
+position = Vector2( -15.75, 0.5 )
 scale = Vector2( 0.5, 0.5 )
 energy = 1
 

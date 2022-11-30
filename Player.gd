@@ -45,7 +45,7 @@ func _process(delta):
 #		$Slots/Slot1.modulate = Color(0.188, 0.294, 0.164, 1)
 #		$Slots/Slot2.modulate = Color(0.294, 0.121, 0.121, 1)
 		$Slots/Sword.modulate.a = (1)
-		$Slots/Shield.modulate.a = (1)
+		$Slots/Shield.modulate.a = (0.350)
 
 	if item == 2:
 		$Slots.look_at(get_global_mouse_position())
@@ -55,7 +55,7 @@ func _process(delta):
 #		$Slots/Slot2.modulate = Color(0.188, 0.294, 0.164, 1)
 #		$Slots/Slot1.modulate = Color(0.294, 0.121, 0.121, 1)
 		$Slots/Shield.modulate.a = (1)
-		$Slots/Sword.modulate.a = (1)
+		$Slots/Sword.modulate.a = (0.350)
 
 	if minecart:
 		speed *= 1.25
