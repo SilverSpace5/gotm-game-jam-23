@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://player.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -139,20 +139,131 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource( 9 )
 
+[sub_resource type="CanvasItemMaterial" id=15]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=16]
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+width = 5
+
 [sub_resource type="Shader" id=11]
 resource_local_to_scene = true
 code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
 
 shader_type canvas_item;
 render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
 
 void fragment() {
-	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV);
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
 }"
 
 [sub_resource type="ShaderMaterial" id=12]
 resource_local_to_scene = true
 shader = SubResource( 11 )
+shader_param/energy = 1.0
+shader_param/colour = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Shader" id=13]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+resource_local_to_scene = true
+shader = SubResource( 13 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slots/Sword/Slash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slots/Sword:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Slots/Sword/Slash:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Sword"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slots/Sword/Slash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slots/Sword:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.34151, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Slots/Sword/Slash:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.366022, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 4, 4 )
@@ -169,7 +280,7 @@ anims/Run = SubResource( 5 )
 anims/RunBack = SubResource( 6 )
 anims/RunFront = SubResource( 7 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, -4 )
 shape = SubResource( 8 )
 
@@ -184,10 +295,7 @@ modulate = Color( 1, 1, 1, 0.784314 )
 material = SubResource( 10 )
 position = Vector2( -0.25, 0 )
 scale = Vector2( 3, 3 )
-z_index = 5
-
-[node name="CollisionShape2D" parent="Light/Collision" index="0"]
-disabled = true
+energy = 1
 
 [node name="Cart" type="Sprite" parent="."]
 visible = false
@@ -208,25 +316,28 @@ z_index = 5
 position = Vector2( 15, 0.75 )
 texture = ExtResource( 5 )
 
+[node name="Slash" type="Sprite" parent="Slots/Sword"]
+visible = false
+material = SubResource( 15 )
+position = Vector2( -3, 3 )
+scale = Vector2( 1.05, 10 )
+texture = SubResource( 17 )
+
 [node name="Shield" type="Sprite" parent="Slots"]
 position = Vector2( -15.25, 0 )
 texture = ExtResource( 6 )
 
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 12 )
-position = Vector2( 15.25, 1.5 )
-scale = Vector2( 0.226562, 0.226562 )
-
-[node name="CollisionShape2D" parent="Slots/Slot1/Collision" index="0"]
-disabled = true
+position = Vector2( 15.25, 0 )
+scale = Vector2( 0.5, 0.5 )
+energy = 1
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 3 )]
-material = SubResource( 12 )
-position = Vector2( -15.25, 1.5 )
-scale = Vector2( 0.226562, 0.226562 )
-
-[node name="CollisionShape2D" parent="Slots/Slot2/Collision" index="0"]
-disabled = true
+material = SubResource( 14 )
+position = Vector2( -15.25, 0 )
+scale = Vector2( 0.5, 0.5 )
+energy = 1
 
 [node name="lightDetect" type="RayCast2D" parent="."]
 visible = false
@@ -236,6 +347,8 @@ cast_to = Vector2( 0, 300 )
 collision_mask = 3
 collide_with_areas = true
 
+[node name="Moves" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 18 )
+anims/Sword = SubResource( 19 )
+
 [editable path="Light"]
-[editable path="Slots/Slot1"]
-[editable path="Slots/Slot2"]

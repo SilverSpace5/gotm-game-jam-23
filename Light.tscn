@@ -1,5 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Light.gd" type="Script" id=1]
+
 [sub_resource type="Shader" id=6]
 resource_local_to_scene = true
 code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
@@ -7,15 +9,17 @@ code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's
 shader_type canvas_item;
 render_mode blend_add;
 uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
 
 void fragment() {
-	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*energy;
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
 }"
 
 [sub_resource type="ShaderMaterial" id=7]
 resource_local_to_scene = true
 shader = SubResource( 6 )
-shader_param/energy = 1.0
+shader_param/energy = 1
+shader_param/colour = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1 )
@@ -26,17 +30,8 @@ fill = 1
 fill_from = Vector2( 0.5125, 0.4875 )
 fill_to = Vector2( 0.870833, 0.266667 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 2, 2 )
-
 [node name="Light" type="Sprite"]
 material = SubResource( 7 )
+z_index = 10
 texture = SubResource( 5 )
-
-[node name="Collision" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
-position = Vector2( 0, 4 )
-shape = SubResource( 3 )
+script = ExtResource( 1 )

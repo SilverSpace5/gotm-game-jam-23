@@ -230,10 +230,11 @@ position = Vector2( 235, 195 )
 speed = 500.0
 
 [node name="Lights" type="Node2D" parent="."]
-modulate = Color( 1, 0.741176, 0.32549, 1 )
 z_index = 5
 script = ExtResource( 5 )
-lightRadius = 10
+lightRadius = 9.0
+lightEnergy = 1
+lightColour = Color( 0.784314, 0.423529, 0, 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 6 )

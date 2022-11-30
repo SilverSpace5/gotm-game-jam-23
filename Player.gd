@@ -30,24 +30,30 @@ func _process(delta):
 		slotVel += vel.length()/2000+0.01
 		slotVel *= 0.99/(delta+1)
 		$Slots.rotation_degrees += slotVel
-		$Slots/Slot1.modulate = Color(0.294, 0.294, 0.294, 1)
-		$Slots/Slot2.modulate = Color(0.294, 0.294, 0.294, 1)
+		$Slots/Slot1.colour = Color.white
+		$Slots/Slot2.colour = Color.white
+#		$Slots/Slot1.modulate = Color(0.294, 0.294, 0.294, 1)
+#		$Slots/Slot2.modulate = Color(0.294, 0.294, 0.294, 1)
 		$Slots/Shield.modulate.a = (1)
 		$Slots/Sword.modulate.a = (1)
 
 	if item == 1:
 		$Slots.look_at(get_global_mouse_position())
 		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation, 0.5)
-		$Slots/Slot1.modulate = Color(0.188, 0.294, 0.164, 1)
-		$Slots/Slot2.modulate = Color(0.294, 0.121, 0.121, 1)
+		$Slots/Slot1.colour = Color.green
+		$Slots/Slot2.colour = Color.red
+#		$Slots/Slot1.modulate = Color(0.188, 0.294, 0.164, 1)
+#		$Slots/Slot2.modulate = Color(0.294, 0.121, 0.121, 1)
 		$Slots/Sword.modulate.a = (1)
 		$Slots/Shield.modulate.a = (1)
 
 	if item == 2:
 		$Slots.look_at(get_global_mouse_position())
 		$Slots.rotation = lerp_angle(oldRot, $Slots.rotation + 1.35 + 360, 0.5)
-		$Slots/Slot2.modulate = Color(0.188, 0.294, 0.164, 1)
-		$Slots/Slot1.modulate = Color(0.294, 0.121, 0.121, 1)
+		$Slots/Slot1.colour = Color.red
+		$Slots/Slot2.colour = Color.green
+#		$Slots/Slot2.modulate = Color(0.188, 0.294, 0.164, 1)
+#		$Slots/Slot1.modulate = Color(0.294, 0.121, 0.121, 1)
 		$Slots/Shield.modulate.a = (1)
 		$Slots/Sword.modulate.a = (1)
 
@@ -110,6 +116,7 @@ func _process(delta):
 #		if body:
 #			if body.get_parent().get_parent().name == "Lights":
 #				body.get_parent().visible = true
-				
-	get_node("Slots/Sword").global_rotation = 0
-	get_node("Slots/Shield").global_rotation = 0
+	
+	$Slots/Sword.flip_v = $Slots.rotation_degrees > 180
+#	get_node("Slots/Sword").global_rotation = 0
+#	get_node("Slots/Shield").global_rotation = 0
