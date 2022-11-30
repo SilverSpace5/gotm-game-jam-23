@@ -14,13 +14,19 @@ func _process(delta):
 	minecart = currentBPO != -1
 	var oldRot = $Slots.rotation
 	
+	if Input.is_action_pressed("attack") and not $Moves.is_playing():
+		if item == 1:
+			$Moves.play("Sword")
+		if item == 2:
+			$Moves.play("Bow")
+	
 	if Input.is_action_just_pressed("sword"):
 		if item == 1:
 			item = 0
 		else:
 			item = 1
 
-	if Input.is_action_just_pressed("shield"):
+	if Input.is_action_just_pressed("bow"):
 		if item == 2:
 			item = 0
 		else:
@@ -34,7 +40,7 @@ func _process(delta):
 		$Slots/Slot2.colour = Color.white
 #		$Slots/Slot1.modulate = Color(0.294, 0.294, 0.294, 1)
 #		$Slots/Slot2.modulate = Color(0.294, 0.294, 0.294, 1)
-		$Slots/Shield.modulate.a = (1)
+		$Slots/Bow.modulate.a = (1)
 		$Slots/Sword.modulate.a = (1)
 
 	if item == 1:
@@ -45,7 +51,7 @@ func _process(delta):
 #		$Slots/Slot1.modulate = Color(0.188, 0.294, 0.164, 1)
 #		$Slots/Slot2.modulate = Color(0.294, 0.121, 0.121, 1)
 		$Slots/Sword.modulate.a = (1)
-		$Slots/Shield.modulate.a = (0.350)
+		$Slots/Bow.modulate.a = (0.350)
 
 	if item == 2:
 		$Slots.look_at(get_global_mouse_position())
@@ -54,7 +60,7 @@ func _process(delta):
 		$Slots/Slot2.colour = Color.green
 #		$Slots/Slot2.modulate = Color(0.188, 0.294, 0.164, 1)
 #		$Slots/Slot1.modulate = Color(0.294, 0.121, 0.121, 1)
-		$Slots/Shield.modulate.a = (1)
+		$Slots/Bow.modulate.a = (1)
 		$Slots/Sword.modulate.a = (0.350)
 
 	if minecart:
@@ -117,8 +123,11 @@ func _process(delta):
 #			if body.get_parent().get_parent().name == "Lights":
 #				body.get_parent().visible = true
 	
-	var rot = float(int($Slots.rotation_degrees*1000) % 360000) / 1000
-	$Slots/Sword.flip_v = rot > 90 and rot < 270
-	$Slots/Shield.flip_v = $Slots/Sword.flip_v
+	$Slots.rotation_degrees = float(int($Slots.rotation_degrees*1000) % 360000) / 1000
+	var rot = abs($Slots.rotation_degrees)
+	$Slots/Sword.scale.y = 1
+	if rot > 90 and rot < 270:
+		$Slots/Sword.scale.y = -1
+	$Slots/Bow.scale.y = $Slots/Sword.scale.y
 #	get_node("Slots/Sword").global_rotation = 0
-#	get_node("Slots/Shield").global_rotation = 0
+#	get_node("Slots/Bow").global_rotation = 0

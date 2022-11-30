@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://player.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://Light.tscn" type="PackedScene" id=3]
 [ext_resource path="res://cart.png" type="Texture" id=4]
 [ext_resource path="res://Sword.png" type="Texture" id=5]
-[ext_resource path="res://Sheild.png" type="Texture" id=6]
+[ext_resource path="res://Bow.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -139,15 +139,6 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource( 9 )
 
-[sub_resource type="CanvasItemMaterial" id=15]
-blend_mode = 1
-
-[sub_resource type="Gradient" id=16]
-
-[sub_resource type="GradientTexture" id=17]
-gradient = SubResource( 16 )
-width = 5
-
 [sub_resource type="Shader" id=11]
 resource_local_to_scene = true
 code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
@@ -186,10 +177,35 @@ shader = SubResource( 13 )
 shader_param/energy = 1
 shader_param/colour = Color( 1, 1, 1, 1 )
 
+[sub_resource type="CanvasItemMaterial" id=15]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=16]
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+width = 5
+
+[sub_resource type="Animation" id=20]
+resource_name = "Bow"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slots/Bow/Bow:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 0 ]
+}
+
 [sub_resource type="Animation" id=18]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slots/Sword/Slash:visible")
+tracks/0/path = NodePath("Slots/Sword/Sword/Slash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -201,7 +217,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Slots/Sword:rotation_degrees")
+tracks/1/path = NodePath("Slots/Sword/Sword:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -213,7 +229,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Slots/Sword/Slash:modulate")
+tracks/2/path = NodePath("Slots/Sword/Sword/Slash:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -224,12 +240,24 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slots/Bow/Bow:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
 
 [sub_resource type="Animation" id=19]
 resource_name = "Sword"
-length = 0.2
+length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slots/Sword/Slash:visible")
+tracks/0/path = NodePath("Slots/Sword/Sword/Slash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -241,19 +269,19 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Slots/Sword:rotation_degrees")
+tracks/1/path = NodePath("Slots/Sword/Sword:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.34151, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.34151, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 180.0 ]
+"values": [ 0.0, 180.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Slots/Sword/Slash:modulate")
+tracks/2/path = NodePath("Slots/Sword/Sword/Slash:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -312,21 +340,6 @@ hframes = 16
 position = Vector2( -0.25, -10.75 )
 z_index = 5
 
-[node name="Sword" type="Sprite" parent="Slots"]
-position = Vector2( 15, 0.75 )
-texture = ExtResource( 5 )
-
-[node name="Slash" type="Sprite" parent="Slots/Sword"]
-visible = false
-material = SubResource( 15 )
-position = Vector2( -3, 3 )
-scale = Vector2( 1.05, 10 )
-texture = SubResource( 17 )
-
-[node name="Shield" type="Sprite" parent="Slots"]
-position = Vector2( -15.75, 0 )
-texture = ExtResource( 6 )
-
 [node name="Slot1" parent="Slots" instance=ExtResource( 3 )]
 material = SubResource( 12 )
 position = Vector2( 14.5, 0.5 )
@@ -339,6 +352,27 @@ position = Vector2( -15.75, 0.5 )
 scale = Vector2( 0.35, 0.35 )
 energy = 1
 
+[node name="Sword" type="Node2D" parent="Slots"]
+position = Vector2( 14.75, 0.5 )
+
+[node name="Sword" type="Sprite" parent="Slots/Sword"]
+texture = ExtResource( 5 )
+
+[node name="Slash" type="Sprite" parent="Slots/Sword/Sword"]
+visible = false
+material = SubResource( 15 )
+position = Vector2( -3, 3 )
+scale = Vector2( 1.05, 10 )
+texture = SubResource( 17 )
+
+[node name="Bow" type="Node2D" parent="Slots"]
+position = Vector2( -15.75, 0 )
+
+[node name="Bow" type="Sprite" parent="Slots/Bow"]
+texture = ExtResource( 6 )
+flip_h = true
+hframes = 4
+
 [node name="lightDetect" type="RayCast2D" parent="."]
 visible = false
 scale = Vector2( 10, 1 )
@@ -348,6 +382,7 @@ collision_mask = 3
 collide_with_areas = true
 
 [node name="Moves" type="AnimationPlayer" parent="."]
+anims/Bow = SubResource( 20 )
 anims/RESET = SubResource( 18 )
 anims/Sword = SubResource( 19 )
 
