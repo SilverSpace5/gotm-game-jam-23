@@ -284,6 +284,7 @@ position = Vector2( 235, 195 )
 speed = 400.0
 
 [node name="Map" type="TileMap" parent="nav/YSort"]
+visible = false
 modulate = Color( 0.00784314, 1, 0, 0.498039 )
 scale = Vector2( 2, 2 )
 z_index = 1
