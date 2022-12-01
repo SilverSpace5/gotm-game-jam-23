@@ -200,3 +200,8 @@ func _process(delta):
 	
 #	get_node("Slots/Sword").global_rotation = 0
 #	get_node("Slots/Bow").global_rotation = 0
+
+
+func _on_Area2D_body_entered(body):
+	if Input.is_action_just_pressed("use"):
+		print("blah")
