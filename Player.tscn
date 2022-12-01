@@ -274,7 +274,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=19]
 resource_name = "Sword"
-length = 0.3
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Slots/Sword/Sword/Slash:visible")
 tracks/0/interp = 1
@@ -294,10 +294,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 0.34151, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 180.0, 0.0 ]
+"values": [ 0.0, 180.0, 360.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Slots/Sword/Sword/Slash:modulate")
@@ -499,5 +499,12 @@ percent_visible = false
 [node name="Extra" type="AnimationPlayer" parent="."]
 anims/Hit = SubResource( 25 )
 anims/RESET = SubResource( 26 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -10.0
+margin_top = -126.0
+margin_right = 30.0
+margin_bottom = -112.0
+text = "\"E\""
 
 [editable path="Light"]
