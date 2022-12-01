@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Pixilart Sprite Sheet (8).png" type="Texture" id=1]
+[ext_resource path="res://Assets/Pixilart Sprite Sheet (8).png" type="Texture" id=1]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
