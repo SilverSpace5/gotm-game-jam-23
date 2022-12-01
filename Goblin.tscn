@@ -307,7 +307,6 @@ scale_amount_random = 1.0
 scale_amount_curve = SubResource( 13 )
 color = Color( 1, 0, 0, 1 )
 
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2( 0, -99 )
+[node name="obstacle" type="Node2D" parent="."]
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Node2D"]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="obstacle"]
