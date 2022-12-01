@@ -31,6 +31,7 @@ func _on_Projectile_body_entered(body):
 		if "Player" in body.name:
 			if body.hit < 0:
 				body.health -= 1
-				body.hit = 0.25
+				body.hit = 0.5
+				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*100
 				body.get_node("Extra").play("Hit")
 	queue_free()

@@ -7,8 +7,10 @@ var timer = 0
 var health = 2
 var hit = 0
 var cooldown = 0
+var move = Vector2.ZERO
 
 func _ready():
+	get_parent().get_parent().get_parent().goblins += 1
 	idleTarget = position
 	$nav.connect("velocity_computed", self, "move")
 #	$nav.set_target_location(get_parent().get_parent().get_node("YSort/Player").position)
@@ -25,6 +27,7 @@ func _process(delta):
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
 		yield(get_tree().create_timer(0.5), "timeout")
+		get_parent().get_parent().get_parent().goblins -= 1
 		queue_free()
 #	timer += delta
 	#$nav.global_position += ($nav/nav2.get_next_location()-$nav.global_position)
@@ -43,7 +46,7 @@ func _process(delta):
 		$Goblin.scale.x = -4
 		
 	var anim = "Idle"
-	if vel.length() > speed*5:
+	if move.length() > speed/10:
 		anim = "Run"
 	if $AnimationPlayer.current_animation != "Attack":
 		if get_parent().get_node("Player").position.distance_to(position) < 50 and targetName == "player" and cooldown < 0:
@@ -76,4 +79,6 @@ func _process(delta):
 #		position.y -= speed
 
 func move(velocity: Vector2):
+	var lastPos = position
 	move_and_slide(velocity)
+	move = position-lastPos

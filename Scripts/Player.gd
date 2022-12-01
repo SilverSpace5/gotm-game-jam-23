@@ -9,12 +9,14 @@ var slotVel = 0
 var item = 0
 var health:float = 1
 var hit = 0
+var cooldown = 0
 onready var spawn = position
 
 func _ready():
 	health = maxHealth
 
 func _process(delta):
+	cooldown -= delta
 	hit -= delta
 	if hit < -3:
 		health += 0.01
@@ -28,8 +30,9 @@ func _process(delta):
 	minecart = currentBPO != -1
 	var oldRot = $Slots.rotation
 	
-	if Input.is_action_just_pressed("attack") and not $Moves.is_playing():
+	if Input.is_action_just_pressed("attack") and cooldown < 0:
 		if item == 1:
+			cooldown = 0.25
 			$Moves.play("Sword")
 			var proj = load("res://Projectile.tscn").instance()
 			proj.texture = load("res://Assets/slash.png")
@@ -42,6 +45,7 @@ func _process(delta):
 			proj.ignore = ["Player"]
 			get_parent().add_child(proj)
 		if item == 2:
+			cooldown = 1
 			$Moves.play("Bow")
 			yield(get_tree().create_timer(0.3), "timeout")
 			var proj = load("res://Projectile.tscn").instance()

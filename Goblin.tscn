@@ -258,8 +258,8 @@ texture = ExtResource( 1 )
 hframes = 10
 
 [node name="nav" type="NavigationAgent2D" parent="."]
-path_desired_distance = 25.0
-target_desired_distance = 25.0
+path_desired_distance = 50.0
+target_desired_distance = 50.0
 path_max_distance = 100.0
 avoidance_enabled = true
 
@@ -307,6 +307,16 @@ scale_amount_random = 1.0
 scale_amount_curve = SubResource( 13 )
 color = Color( 1, 0, 0, 1 )
 
-[node name="obstacle" type="Node2D" parent="."]
+[node name="up" type="Node2D" parent="."]
+position = Vector2( 0, -84 )
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="obstacle"]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="up"]
+estimate_radius = false
+radius = 25.0
+
+[node name="down" type="Node2D" parent="."]
+position = Vector2( 0, 45 )
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="down"]
+estimate_radius = false
+radius = 25.0
