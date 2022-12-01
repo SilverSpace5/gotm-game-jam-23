@@ -10,6 +10,7 @@ var cooldown = 0
 
 func _ready():
 	idleTarget = position
+	$nav.connect("velocity_computed", self, "move")
 #	$nav.set_target_location(get_parent().get_parent().get_node("YSort/Player").position)
 
 func _process(delta):
@@ -63,7 +64,7 @@ func _process(delta):
 			get_parent().add_child(proj)
 		$AnimationPlayer.play(anim)
 	vel *= 0.95
-	move_and_slide(vel)
+	$nav.set_velocity(vel)
 #	if target.x > position.x:
 #		position.x += speed
 #	if target.x < position.x:
@@ -73,3 +74,6 @@ func _process(delta):
 #		position.y += speed
 #	if target.y < position.y:
 #		position.y -= speed
+
+func move(velocity: Vector2):
+	move_and_slide(velocity)

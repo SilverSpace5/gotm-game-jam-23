@@ -21,7 +21,7 @@ func _on_Projectile_body_entered(body):
 		if body.name in name2:
 			return
 	if name != "slash-goblin":
-		if "Goblin" in body.name:
+		if "Goblin" in body.name and not "King" in body.name:
 			if body.hit < 0:
 				body.health -= 1
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*10

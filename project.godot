@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Gotm-game-jam- 23"
+config/name="The 2 Goblins"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 

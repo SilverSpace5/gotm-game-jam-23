@@ -2,23 +2,29 @@ extends KinematicBody2D
 
 export (float) var speed = 500
 export (bool) var minecart = false
+export (float) var maxHealth = 3
 var vel = Vector2.ZERO
 var lastDir = "+x"
 var slotVel = 0
 var item = 0
-var health = 3
+var health = 1
 var hit = 0
 onready var spawn = position
+
+func _ready():
+	health = maxHealth
+	$Health.value = 0
 
 func _process(delta):
 	hit -= delta
 	if hit < -3:
 		health += 0.01
-		health = clamp(health, 0, 3)
+		health = clamp(health, 0, maxHealth)
 	if health <= 0:
 		position = spawn
-		health = 3
-	$Health.value += (100-health/3.0*100.0-$Health.value)/5
+		health = maxHealth
+		$Health.value = 0
+	$Health.value += ((health/maxHealth*100.0)-$Health.value)/5
 	var bpo = get_parent().get_parent().get_parent().get_node("BPO")
 	var currentBPO = bpo.get_cellv(bpo.world_to_map((position-Vector2(0, 32))/4))
 	minecart = currentBPO != -1

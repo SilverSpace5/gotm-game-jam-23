@@ -1,6 +1,7 @@
 extends Node2D
 
 var goblinTimer = 0
+var arena = false
 
 func _ready():
 	$Lights.visible = true
@@ -15,3 +16,11 @@ func _process(delta):
 		$nav/YSort.add_child(goblin)
 		yield(get_tree().create_timer(0.1), "timeout")
 		goblin.idleTarget = Vector2(rand_range(-300, 700), rand_range(-1600, -1000))
+
+func _on_Arena_body_entered(body):
+	if body.name == "Player":
+		arena = true
+		$nav/YSort/FG.set_cell(-8, -14, 4)
+		$nav/YSort/FG.set_cell(-7, -14, 1)
+		$nav/YSort/FG.set_cell(-6, -14, 1)
+		$nav/YSort/FG.set_cell(-5, -14, 2)

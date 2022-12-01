@@ -15,31 +15,11 @@ func _process(delta):
 		update = false
 		for child in get_children():
 			child.queue_free()
-		for tilePos in get_parent().get_node("nav/YSort/Objects").get_used_cells_by_id(9):
-			var light = load("res://Light.tscn").instance()
-			add_child(light)
-			light.position = tilePos*64+Vector2(32, 32)
-			light.scale = Vector2(lightRadius, lightRadius)
-			light.energy = lightEnergy
-			light.colour = lightColour
-		for tilePos in get_parent().get_node("nav/YSort/Objects").get_used_cells_by_id(10):
-			var light = load("res://Light.tscn").instance()
-			add_child(light)
-			light.position = tilePos*64+Vector2(32, 32)
-			light.scale = Vector2(lightRadius, lightRadius)
-			light.energy = lightEnergy
-			light.colour = lightColour
-		for tilePos in get_parent().get_node("nav/YSort/Objects").get_used_cells_by_id(23):
-			var light = load("res://Light.tscn").instance()
-			add_child(light)
-			light.position = tilePos*64+Vector2(32, 32)
-			light.scale = Vector2(lightRadius, lightRadius)
-			light.energy = lightEnergy
-			light.colour = lightColour
-		for tilePos in get_parent().get_node("nav/YSort/Objects").get_used_cells_by_id(25):
-			var light = load("res://Light.tscn").instance()
-			add_child(light)
-			light.position = tilePos*64+Vector2(32, 32)
-			light.scale = Vector2(lightRadius, lightRadius)
-			light.energy = lightEnergy
-			light.colour = lightColour
+		for lightTile in [9, 11, 12]:
+			for tilePos in get_parent().get_node("nav/YSort/Objects").get_used_cells_by_id(lightTile):
+				var light = load("res://Light.tscn").instance()
+				add_child(light)
+				light.position = tilePos*64+Vector2(32, 32)
+				light.scale = Vector2(lightRadius, lightRadius)
+				light.energy = lightEnergy
+				light.colour = lightColour
