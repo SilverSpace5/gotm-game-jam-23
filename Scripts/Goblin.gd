@@ -9,6 +9,8 @@ var hit = 0
 var cooldown = 0
 var move = Vector2.ZERO
 
+signal del
+
 func _ready():
 	get_parent().get_parent().get_parent().goblins += 1
 	idleTarget = position
@@ -26,6 +28,7 @@ func _process(delta):
 	if health <= 0 and not $CollisionShape2D.disabled:
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
+		emit_signal("del")
 		yield(get_tree().create_timer(0.5), "timeout")
 		get_parent().get_parent().get_parent().goblins -= 1
 		queue_free()
@@ -49,7 +52,7 @@ func _process(delta):
 	if move.length() > speed/10:
 		anim = "Run"
 	if $AnimationPlayer.current_animation != "Attack":
-		if get_parent().get_node("Player").position.distance_to(position) < 50 and targetName == "player" and cooldown < 0:
+		if get_parent().get_node("Player").position.distance_to(position) < 50 and targetName == "player" and cooldown < 0 and not $CollisionShape2D.disabled:
 			cooldown = 1
 			anim = "Attack"
 			var proj = load("res://Projectile.tscn").instance()
@@ -64,6 +67,7 @@ func _process(delta):
 			proj.position = position+Vector2($Goblin.scale.x*5, 0)
 			proj.name = "slash-goblin"
 			proj.ignore = ["Goblin"]
+			connect("del", proj, "remove")
 			get_parent().add_child(proj)
 		$AnimationPlayer.play(anim)
 	vel *= 0.95

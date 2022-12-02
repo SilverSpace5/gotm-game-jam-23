@@ -45,7 +45,7 @@ func _process(delta):
 			proj.ignore = ["Player"]
 			get_parent().add_child(proj)
 		if item == 2:
-			cooldown = 1
+			cooldown = 0.5
 			$Moves.play("Bow")
 			yield(get_tree().create_timer(0.3), "timeout")
 			var proj = load("res://Projectile.tscn").instance()
