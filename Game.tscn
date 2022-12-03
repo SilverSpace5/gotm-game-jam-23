@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/World.tres" type="TileSet" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Goblin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/tiles.png" type="Texture" id=9]
 [ext_resource path="res://Goblin King.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sbeam.png" type="Texture" id=11]
+[ext_resource path="res://Light.tscn" type="PackedScene" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "pixil-frame-0 (3).png 0"
@@ -228,6 +230,25 @@ extents = Vector2( 940, 481.5 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 83.25, 84.9702 )
 
+[sub_resource type="Shader" id=8]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -357,6 +378,14 @@ shape = SubResource( 6 )
 position = Vector2( -335.858, 531.073 )
 rotation = -3.14395
 shape = SubResource( 7 )
+
+[node name="Light" parent="." instance=ExtResource( 12 )]
+material = SubResource( 9 )
+position = Vector2( 201, -1371 )
+scale = Vector2( 1, 14.7969 )
+texture = ExtResource( 11 )
+energy = 1
+colour = Color( 1, 0, 0, 1 )
 
 [connection signal="body_entered" from="Arena" to="." method="_on_Arena_body_entered"]
 [connection signal="body_entered" from="Area2D" to="nav/YSort/Player" method="_on_Area2D_body_entered"]
