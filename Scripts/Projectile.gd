@@ -43,11 +43,12 @@ func collide(body):
 		queue_free()
 
 func _on_Projectile_body_entered(body):
-	collide(body)
+	if not "Goblin King" in body.name:
+		collide(body)
 
 func remove():
 	queue_free()
 
 func _on_Projectile_area_entered(area):
-	if area.get_parent().name == "Goblin King":
+	if "Goblin King" in area.get_parent().name:
 		collide(area.get_parent())
