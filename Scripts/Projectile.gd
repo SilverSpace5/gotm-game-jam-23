@@ -41,3 +41,6 @@ func _on_Projectile_body_entered(body):
 				body.get_node("Extra").play("Hit")
 	if not "shockwave" in name:
 		queue_free()
+
+func remove():
+	queue_free()
