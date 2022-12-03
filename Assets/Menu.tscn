@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/homespun.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,25 @@
 [ext_resource path="res://Assets/pressedButton.tres" type="StyleBox" id=4]
 [ext_resource path="res://Assets/hoverButton.tres" type="StyleBox" id=5]
 [ext_resource path="res://Assets/Menu.gd" type="Script" id=6]
+
+[sub_resource type="Shader" id=5]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool flash = false;
+
+void fragment() {
+	if (flash) {
+		COLOR = vec4(1.0, 1.0, 1.0, texture(TEXTURE, UV).a);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/flash = false
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -59,6 +78,12 @@ script = ExtResource( 6 )
 
 [node name="Game" parent="." instance=ExtResource( 1 )]
 
+[node name="Player" parent="Game/nav/YSort" index="2"]
+script = null
+
+[node name="Goblin" parent="Game/nav/YSort/Goblin" index="0"]
+material = SubResource( 6 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
 current = true
@@ -108,3 +133,6 @@ anims/RESET = SubResource( 2 )
 anims/menu = SubResource( 3 )
 
 [connection signal="pressed" from="UI/Play" to="." method="_on_Play_pressed"]
+
+[editable path="Game"]
+[editable path="Game/nav/YSort/Goblin"]
