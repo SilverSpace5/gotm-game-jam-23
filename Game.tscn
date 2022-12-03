@@ -277,10 +277,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 3.24901, 0.435275, 4, 0.435275 ),
 "update": 0,
-"values": [ 90.0, -0.1, -90.0, 0.0, 90.0 ]
+"values": [ 90.0, 0.0, -90.0, 0.0 ]
 }
 
 [node name="Game" type="Node2D"]
