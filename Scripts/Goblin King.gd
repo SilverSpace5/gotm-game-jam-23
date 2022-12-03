@@ -5,7 +5,7 @@ var vel = Vector2.ZERO
 var idleTarget = position
 var move = Vector2.ZERO
 var cooldown = -1
-var health = 15
+var health = 30
 var hit = 0
 
 func _ready():
@@ -14,7 +14,7 @@ func _ready():
 
 func _process(delta):
 	hit -= delta
-	$GoblinKing/Health.value += (100-health/15.0*100.0-$GoblinKing/Health.value)/5
+	$GoblinKing/Health.value += (100-health/30.0*100.0-$GoblinKing/Health.value)/5
 	if health <= 0 and not $CollisionShape2D.disabled:
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
