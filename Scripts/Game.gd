@@ -8,6 +8,7 @@ var goblins = 0
 func _ready():
 	$Lights.visible = true
 	$Lights.update = true
+	$boss_fight_music.playing = false
 
 func _process(delta):
 	pass
@@ -29,6 +30,7 @@ func _on_Arena_body_entered(body):
 		$nav/YSort/FG.set_cell(-7, -14, 1)
 		$nav/YSort/FG.set_cell(-6, -14, 1)
 		$nav/YSort/FG.set_cell(-5, -14, 2)
+		$boss_fight_music.playing = true
 
 
 func _on_Area2D_body_entered(body):
