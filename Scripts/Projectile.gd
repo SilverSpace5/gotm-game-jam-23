@@ -21,7 +21,7 @@ func _process(delta):
 	else:
 		position += Vector2(1, 0).rotated(deg2rad(dir))*speed
 
-func _on_Projectile_body_entered(body):
+func collide(body):
 	for name2 in ignore:
 		if body.name in name2:
 			return
@@ -42,5 +42,12 @@ func _on_Projectile_body_entered(body):
 	if not "shockwave" in name:
 		queue_free()
 
+func _on_Projectile_body_entered(body):
+	collide(body)
+
 func remove():
 	queue_free()
+
+func _on_Projectile_area_entered(area):
+	if area.get_parent().name == "Goblin King":
+		collide(area.get_parent())

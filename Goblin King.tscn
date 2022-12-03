@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Goblin King.png" type="Texture" id=1]
 [ext_resource path="res://Assets/mace.png" type="Texture" id=2]
@@ -136,6 +136,46 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 15.0 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "Attack3"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("GoblinKing:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GoblinKing/Mace:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 15.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GoblinKing/Mace:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 11, -13 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -299,7 +339,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 5, 3 )
+extents = Vector2( 28, 23.75 )
 
 [sub_resource type="Animation" id=12]
 resource_name = "Die"
@@ -435,6 +475,9 @@ tracks/3/keys = {
 [sub_resource type="Curve" id=15]
 _data = [ Vector2( 0.014742, 0.015304 ), 0.0, 0.0, 0, 0, Vector2( 0.503685, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 28, 64 )
+
 [node name="Goblin King" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 2
@@ -442,7 +485,7 @@ script = ExtResource( 3 )
 
 [node name="GoblinKing" type="Sprite" parent="."]
 material = SubResource( 11 )
-position = Vector2( 0, -63 )
+position = Vector2( 0, -64 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 11
@@ -468,13 +511,14 @@ percent_visible = false
 autoplay = "Idle"
 anims/Attack = SubResource( 1 )
 anims/Attack2 = SubResource( 9 )
+anims/Attack3 = SubResource( 17 )
 anims/Idle = SubResource( 2 )
 anims/Jump = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 anims/Run = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -22.25 )
+position = Vector2( 0, -23 )
 shape = SubResource( 6 )
 
 [node name="nav" type="NavigationAgent2D" parent="."]
@@ -506,3 +550,9 @@ scale_amount = 2.0
 scale_amount_random = 1.0
 scale_amount_curve = SubResource( 15 )
 color = Color( 1, 0, 0, 1 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, -63 )
+shape = SubResource( 16 )

@@ -37,6 +37,8 @@ func _process(delta):
 			randomize()
 			if round(rand_range(0, 1)) == 1:
 				cooldown = 3
+				$AnimationPlayer.play("Attack3")
+				yield(get_tree().create_timer(0.5), "timeout")
 				for i in range(3):
 					var goblin = load("res://Goblin.tscn").instance()
 					goblin.position = Vector2(position.x + rand_range(-100, 100), position.y + rand_range(-100, 100))
@@ -61,13 +63,15 @@ func _process(delta):
 		
 	if (position.direction_to(target)*speed).x > 0:
 		$GoblinKing.scale.x = 4
+		$GoblinKing/Health.rect_scale.x = -0.25
 	else:
 		$GoblinKing.scale.x = -4
+		$GoblinKing/Health.rect_scale.x = 0.25
 		
 	var anim = "Idle"
 	if move.length() > speed/10:
 		anim = "Run"
-	if $AnimationPlayer.current_animation != "Attack" and $AnimationPlayer.current_animation != "Attack2":
+	if not "Attack" in $AnimationPlayer.current_animation:
 		$AnimationPlayer.play(anim)
 	vel *= 0.95
 	$nav.set_velocity(vel)
