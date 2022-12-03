@@ -485,7 +485,7 @@ script = ExtResource( 3 )
 
 [node name="GoblinKing" type="Sprite" parent="."]
 material = SubResource( 11 )
-position = Vector2( 0, -64 )
+position = Vector2( 0, -118 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 11
@@ -556,3 +556,5 @@ color = Color( 1, 0, 0, 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( 0, -63 )
 shape = SubResource( 16 )
+
+[node name="Tween" type="Tween" parent="."]
