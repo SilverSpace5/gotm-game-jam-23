@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/homespun.ttf" type="DynamicFontData" id=2]
@@ -25,6 +25,25 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource( 5 )
 shader_param/flash = false
+
+[sub_resource type="Shader" id=7]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 7 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -83,6 +102,9 @@ script = null
 
 [node name="Goblin" parent="Game/nav/YSort/Goblin" index="0"]
 material = SubResource( 6 )
+
+[node name="Light" parent="Game" index="8"]
+material = SubResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
