@@ -253,6 +253,7 @@ shader_param/colour = Color( 1, 0, 0, 1 )
 
 [sub_resource type="Animation" id=10]
 length = 0.001
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Light:rotation_degrees")
 tracks/0/interp = 1
