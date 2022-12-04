@@ -11,20 +11,9 @@ func _ready():
 	$boss_fight_music.playing = false
 	$techno_boss_theme.playing = false
 
-func _process(delta):
-d	if $"nav/YSort/Goblin King".health <= 0:
-		$boss_fight_music.playing = false
-		$techno_boss_theme.playing = true
-	pass
-#	if goblins < maxGoblins:
-#		goblinTimer += delta
-#		if goblinTimer > 3:
-#			goblinTimer = 0
-#			var goblin = load("res://Goblin.tscn").instance()
-#			goblin.position = Vector2(1150, -1275)
-#			$nav/YSort.add_child(goblin)
-#			yield(get_tree().create_timer(0.1), "timeout")
-#			goblin.idleTarget = Vector2(rand_range(-300, 700), rand_range(-1600, -1000))
+func kingGoblinDefeat():
+	$boss_fight_music.playing = false
+	$techno_boss_theme.playing = true
 
 func _on_Arena_body_entered(body):
 	if body.name == "Player":

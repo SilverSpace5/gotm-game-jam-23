@@ -19,7 +19,7 @@ func _process(delta):
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
 		yield(get_tree().create_timer(0.5), "timeout")
-		get_parent().get_parent().get_parent().goblins -= 1
+		get_parent().get_parent().get_parent().kingGoblinDefeat()
 		queue_free()
 	
 	var target = idleTarget
@@ -35,6 +35,7 @@ func _process(delta):
 	cooldown -= delta
 	if cooldown < 0:
 		if get_parent().get_node("Player").position.distance_to(position) < 150 and round(rand_range(0, 1)) == 1:
+			cooldown = 1
 			$AnimationPlayer.play("Attack")
 			yield(get_tree().create_timer(0.25), "timeout")
 			var proj = load("res://Projectile.tscn").instance()
@@ -48,8 +49,8 @@ func _process(delta):
 			get_parent().add_child(proj)
 		elif get_parent().get_parent().get_parent().arena:
 			randomize()
-			if round(rand_range(0, 1)) == 1:
-				cooldown = 5
+			if round(rand_range(0, 3)) == 0:
+				cooldown = 3
 				$AnimationPlayer.play("Attack3")
 				yield(get_tree().create_timer(0.5), "timeout")
 				for i in range(3):
@@ -59,7 +60,7 @@ func _process(delta):
 			else:
 				cooldown = 2
 				$AnimationPlayer.play("Attack2")
-				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.5)
+				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.9)
 				$Tween.start()
 				yield(get_tree().create_timer(0.5), "timeout")
 				var proj = load("res://Projectile.tscn").instance()
