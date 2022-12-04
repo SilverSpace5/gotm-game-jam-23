@@ -4,7 +4,7 @@ export (float) var speed = 10
 var vel = Vector2.ZERO
 var idleTarget = position
 var move = Vector2.ZERO
-var cooldown = 3
+var cooldown = 2
 var health = 30
 var hit = 0
 
