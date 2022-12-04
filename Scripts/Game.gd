@@ -12,7 +12,7 @@ func _ready():
 	$techno_boss_theme.playing = false
 
 func _process(delta):
-	if $"nav/YSort/Goblin King".health <= 0:
+d	if $"nav/YSort/Goblin King".health <= 0:
 		$boss_fight_music.playing = false
 		$techno_boss_theme.playing = true
 	pass
