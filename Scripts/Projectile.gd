@@ -25,8 +25,10 @@ func collide(body):
 	for name2 in ignore:
 		if body.name in name2:
 			return
+	var hitEntity = false
 	if not "slash-goblin" in name and not "shockwave" in name:
 		if "Goblin" in body.name:
+			hitEntity = true
 			if body.hit < 0:
 				body.health -= 1
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*10
@@ -34,11 +36,16 @@ func collide(body):
 				body.get_node("Extra").play("Hit")
 	else:
 		if "Player" in body.name:
+			hitEntity = true
 			if body.hit < 0:
 				body.health -= 1
 				body.hit = 0.5
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*100
 				body.get_node("Extra").play("Hit")
+	if hitEntity:
+		Sounds.playSound("res://Assets/Sounds/Hit/impactMining_00" + str(round(rand_range(1, 4))) + ".ogg")
+	elif not "shockwave" in name:
+		Sounds.playSound("res://Assets/Sounds/HitWall/impactPlank_medium_00" + str(round(rand_range(1, 4))) + ".ogg")
 	if not "shockwave" in name:
 		queue_free()
 

@@ -14,6 +14,10 @@ config/name="The 2 Goblins"
 run/main_scene="res://Assets/Menu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Sounds="*res://Sounds.gd"
+
 [debug]
 
 settings/fps/force_fps=60
