@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Pixilart Sprite Sheet (8).png" type="Texture" id=1]
 [ext_resource path="res://Gangster.gd" type="Script" id=2]
@@ -83,16 +83,13 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 10, 15 )
-
 [sub_resource type="CircleShape2D" id=7]
 radius = 105.03
 
-[node name="Sprite" type="Sprite"]
+[node name="Gangster" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
-offset = Vector2( 0, -31.235 )
+offset = Vector2( 0, -45.451 )
 hframes = 9
 script = ExtResource( 2 )
 
@@ -103,19 +100,14 @@ anims/finger = SubResource( 3 )
 anims/hands = SubResource( 4 )
 anims/idle = SubResource( 5 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 0, -15 )
-shape = SubResource( 6 )
-
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 3.5 )
+position = Vector2( 0, -6.5 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 
 [node name="smash" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="smash"]
+visible = false
 position = Vector2( 0, 0.5 )
 shape = SubResource( 7 )

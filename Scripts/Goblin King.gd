@@ -4,7 +4,7 @@ export (float) var speed = 10
 var vel = Vector2.ZERO
 var idleTarget = position
 var move = Vector2.ZERO
-var cooldown = -1
+var cooldown = 3
 var health = 30
 var hit = 0
 
@@ -32,7 +32,8 @@ func _process(delta):
 		target = $nav.get_next_location()
 		vel += position.direction_to(target)*speed
 	
-	cooldown -= delta
+	if get_parent().get_parent().get_parent().arena:
+		cooldown -= delta
 	if cooldown < 0:
 		if get_parent().get_node("Player").position.distance_to(position) < 150 and round(rand_range(0, 1)) == 1:
 			cooldown = 1

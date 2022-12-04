@@ -390,6 +390,10 @@ position = Vector2( -255, -64 )
 [node name="Goblin13" parent="nav/YSort" instance=ExtResource( 8 )]
 position = Vector2( -610, -89 )
 
+[node name="Gangster" parent="nav/YSort" instance=ExtResource( 14 )]
+position = Vector2( 177, -1694 )
+scale = Vector2( 3, 3 )
+
 [node name="Lights" type="Node2D" parent="."]
 z_index = 5
 script = ExtResource( 5 )
@@ -426,10 +430,6 @@ energy = 1
 colour = Color( 1, 0, 0, 1 )
 
 [node name="boss_fight_music" parent="." instance=ExtResource( 13 )]
-
-[node name="Sprite" parent="." instance=ExtResource( 14 )]
-position = Vector2( 177, -1694 )
-scale = Vector2( 3, 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 10 )
