@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/World.tres" type="TileSet" id=2]
@@ -284,6 +284,38 @@ tracks/0/keys = {
 "values": [ 90.0, 0.0, -90.0, 0.0 ]
 }
 
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 126.3 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "sidet"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 126.3, 53.6, -55.5, 53.6, 140.9 ]
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -420,9 +452,19 @@ shape = SubResource( 7 )
 
 [node name="Light" parent="." instance=ExtResource( 12 )]
 material = SubResource( 9 )
-position = Vector2( 169.931, -1847.87 )
+position = Vector2( 190, -1718 )
 rotation = 1.56905
 scale = Vector2( 1.89129, 18.4754 )
+texture = ExtResource( 11 )
+offset = Vector2( 0, 32.34 )
+energy = 1
+colour = Color( 1, 0, 0, 0.615686 )
+
+[node name="Light2" parent="." instance=ExtResource( 12 )]
+material = SubResource( 9 )
+position = Vector2( 875, -1717 )
+rotation = 2.20435
+scale = Vector2( 1.89129, 24.684 )
 texture = ExtResource( 11 )
 offset = Vector2( 0, 32.34 )
 energy = 1
@@ -434,6 +476,11 @@ colour = Color( 1, 0, 0, 0.615686 )
 playback_speed = 0.25
 anims/RESET = SubResource( 10 )
 anims/hehe = SubResource( 11 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+playback_speed = 0.25
+anims/RESET = SubResource( 12 )
+anims/sidet = SubResource( 13 )
 
 [node name="techno_boss_theme" parent="." instance=ExtResource( 15 )]
 position = Vector2( 174, -1840 )

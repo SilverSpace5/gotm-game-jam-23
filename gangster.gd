@@ -24,6 +24,8 @@ func _physics_process(delta):
 		
 	if atc == 4:
 		$AnimationPlayer.play("finger")
+		get_parent().get_parent().get_parent().get_node("AnimationPlayer").play("hehe")
 		
 	if atc == 5:
 		$AnimationPlayer.play("hands")
+		get_parent().get_parent().get_parent().get_node("AnimationPlayer2").play("sidet")
