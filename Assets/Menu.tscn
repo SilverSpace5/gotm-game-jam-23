@@ -136,11 +136,7 @@ material = SubResource( 6 )
 material = SubResource( 8 )
 scale = Vector2( 1, 18.8324 )
 
-[node name="Sprite" parent="Game" index="10"]
-position = Vector2( 200, -1910 )
-scale = Vector2( 4, 4 )
-
-[node name="AnimationPlayer" parent="Game" index="11"]
+[node name="AnimationPlayer" parent="Game" index="10"]
 anims/laser = SubResource( 11 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

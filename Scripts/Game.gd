@@ -14,6 +14,8 @@ func _ready():
 func kingGoblinDefeat():
 	$boss_fight_music.playing = false
 	$techno_boss_theme.playing = true
+	$nav/YSort/Gangster.loop()
+	$nav/YSort/Gangster.attacks()
 
 func _on_Arena_body_entered(body):
 	if body.name == "Player":
