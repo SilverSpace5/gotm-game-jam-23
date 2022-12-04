@@ -9,5 +9,5 @@ func start():
 
 func _process(delta):
 	timer += delta
-	if timer > 0.5:
+	if timer > 0.5 or Music.mute:
 		queue_free()

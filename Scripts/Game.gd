@@ -6,6 +6,16 @@ var arena = false
 var goblins = 0
 var boss2 = false
 
+func _process(delta):
+	if Music.mute:
+		$normal.volume_db = -100
+		$boss_fight_music.volume_db = -100
+		$techno_boss_theme.volume_db = -100
+	else:
+		$normal.volume_db = 0
+		$boss_fight_music.volume_db = 0
+		$techno_boss_theme.volume_db = 0
+
 func _ready():
 	$Lights.visible = true
 	$Lights.update = true
