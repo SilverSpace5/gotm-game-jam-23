@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/World.tres" type="TileSet" id=2]
@@ -10,11 +10,12 @@
 [ext_resource path="res://Goblin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/tiles.png" type="Texture" id=9]
 [ext_resource path="res://Goblin King.tscn" type="PackedScene" id=10]
-[ext_resource path="res://sbeam.png" type="Texture" id=11]
-[ext_resource path="res://Light.tscn" type="PackedScene" id=12]
+[ext_resource path="res://LightBeam.tscn" type="PackedScene" id=11]
 [ext_resource path="res://boss_fight_music.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Gangster.tscn" type="PackedScene" id=14]
 [ext_resource path="res://techno_boss_theme.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Goblin Boss.mp3" type="AudioStream" id=16]
+[ext_resource path="res://normal music.mp3" type="AudioStream" id=17]
 
 [sub_resource type="TileSet" id=1]
 0/name = "pixil-frame-0 (3).png 0"
@@ -227,13 +228,48 @@ resource_local_to_scene = true
 shader = SubResource( 4 )
 shader_param/flash = false
 
+[sub_resource type="Shader" id=18]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool flash = false;
+
+void fragment() {
+	if (flash) {
+		COLOR = vec4(1.0, 1.0, 1.0, texture(TEXTURE, UV).a);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=19]
+resource_local_to_scene = true
+shader = SubResource( 18 )
+shader_param/flash = false
+
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 940, 481.5 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 83.25, 84.9702 )
+extents = Vector2( 414.375, 164.507 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Animation" id=10]
+length = 0.001
+
+[sub_resource type="Animation" id=11]
+resource_name = "hehe"
+length = 2.0
+loop = true
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+
+[sub_resource type="Animation" id=13]
+resource_name = "sidet"
+length = 2.0
+loop = true
+
+[sub_resource type="Shader" id=14]
 resource_local_to_scene = true
 code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
 
@@ -246,75 +282,30 @@ void fragment() {
 	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=15]
 resource_local_to_scene = true
-shader = SubResource( 8 )
+shader = SubResource( 14 )
 shader_param/energy = 1
-shader_param/colour = Color( 1, 0, 0, 0.615686 )
+shader_param/colour = Color( 1, 0, 0, 1 )
 
-[sub_resource type="Animation" id=10]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Light:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 89.9 ]
-}
+[sub_resource type="Shader" id=16]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
 
-[sub_resource type="Animation" id=11]
-resource_name = "hehe"
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Light:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 3.24901, 0.435275, 4, 0.435275 ),
-"update": 0,
-"values": [ 90.0, 0.0, -90.0, 0.0 ]
-}
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
 
-[sub_resource type="Animation" id=12]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Light2:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 126.3 ]
-}
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
 
-[sub_resource type="Animation" id=13]
-resource_name = "sidet"
-length = 2.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Light2:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 126.3, 53.6, -55.5, 53.6, 140.9 ]
-}
+[sub_resource type="ShaderMaterial" id=17]
+resource_local_to_scene = true
+shader = SubResource( 16 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -369,10 +360,10 @@ collision_layer = 3
 collision_mask = 3
 bake_navigation = true
 format = 1
-tile_data = PoolIntArray( -1835015, 4, 0, -1835014, 1, 0, -1835013, 1, 0, -1835012, 1, 0, -1835011, 1, 0, -1835010, 1, 0, -1835009, 1, 0, -1900544, 1, 0, -1900543, 1, 0, -1900542, 1, 0, -1900541, 1, 0, -1900540, 1, 0, -1900539, 1, 0, -1900538, 1, 0, -1900537, 1, 0, -1900536, 1, 0, -1900535, 1, 0, -1900534, 1, 0, -1900533, 1, 0, -1900532, 536870916, 0, -1769480, 4, 0, -1769479, 7, 0, -1834996, 536870919, 0, -1834995, 536870916, 0, -1703945, 4, 0, -1703944, 7, 0, -1769459, 536870919, 0, -1769458, 536870916, 0, -1638410, 4, 0, -1638409, 7, 0, -1703922, 536870919, 0, -1703921, 536870916, 0, -1572874, 5, 0, -1638385, 5, 0, -1507338, 5, 0, -1572849, 5, 0, -1441802, 5, 0, -1507313, 5, 0, -1376266, 5, 0, -1441777, 5, 0, -1310730, 5, 0, -1376241, 5, 0, -1245194, 5, 0, -1310705, 5, 0, -1179658, 5, 0, -1245169, 5, 0, -1114122, 5, 0, -1179633, 5, 0, -1048586, 5, 0, -1114097, 5, 0, -983050, 536870919, 0, -983049, 536870916, 0, -1048562, 4, 0, -1048561, 7, 0, -917513, 536870919, 0, -917512, 536870916, 0, -983027, 4, 0, -983026, 7, 0, -851976, 5, 0, -851973, 4, 0, -851972, 1, 0, -851971, 1, 0, -851970, 1, 0, -851969, 1, 0, -917504, 1, 0, -917503, 1, 0, -917502, 1, 0, -917501, 1, 0, -917500, 1, 0, -917499, 1, 0, -917498, 1, 0, -917497, 1, 0, -917496, 1, 0, -917495, 1, 0, -917494, 1, 0, -917493, 1, 0, -917492, 1, 0, -917491, 7, 0, -786440, 5, 0, -786437, 5, 0, -720904, 5, 0, -720901, 5, 0, -655368, 5, 0, -655365, 5, 0, -589832, 5, 0, -589829, 5, 0, -524296, 5, 0, -524293, 5, 0, -458764, 4, 0, -458763, 1, 0, -458762, 1, 0, -458761, 1, 0, -458760, 7, 0, -458757, 536870919, 0, -458756, 1, 0, -458755, 1, 0, -458754, 1, 0, -458753, 2, 0, -524288, 1, 0, -524287, 1, 0, -524286, 1, 0, -524285, 1, 0, -524284, 1, 0, -524283, 1, 0, -524282, 1, 0, -524281, 1, 0, -524280, 1, 0, -524279, 1, 0, -524278, 1, 0, -524277, 1, 0, -524276, 1, 0, -524275, 1, 0, -524274, 1, 0, -524273, 1, 0, -524272, 1, 0, -524271, 536870916, 0, -393228, 5, 0, -393217, 5, 0, -458735, 5, 0, -327692, 5, 0, -327681, 5, 0, -393199, 5, 0, -262156, 5, 0, -262145, 5, 0, -327678, 1, 0, -327677, 1, 0, -327676, 1, 0, -327675, 1, 0, -327674, 1, 0, -327673, 1, 0, -327672, 1, 0, -327671, 536870916, 0, -327663, 5, 0, -196620, 5, 0, -196609, 5, 0, -262135, 5, 0, -262127, 5, 0, -131084, 5, 0, -131073, 536870919, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -196605, 1, 0, -196604, 1, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196599, 5, 0, -196591, 5, 0, -65548, 5, 0, -131063, 5, 0, -131055, 5, 0, -12, 5, 0, -65527, 5, 0, -65519, 5, 0, 65524, 4, 0, 65525, 1, 0, 65526, 1, 0, 65527, 1, 0, 65528, 1, 0, 65529, 1, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 2, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 2, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 16, 1, 0, 17, 536870916, 0, 131060, 536870917, 0, 131071, 5, 0, 65545, 5, 0, 65553, 5, 0, 196596, 536870917, 0, 196607, 5, 0, 131081, 5, 0, 131089, 5, 0, 262132, 536870917, 0, 262143, 13, 0, 196617, 5, 0, 196625, 5, 0, 327668, 536870917, 0, 262153, 5, 0, 262161, 5, 0, 393196, 4, 0, 393197, 1, 0, 393198, 1, 0, 393199, 1, 0, 393200, 1, 0, 393201, 1, 0, 393202, 1, 0, 393203, 1, 0, 393204, 7, 0, 393207, 4, 0, 393208, 1, 0, 393209, 1, 0, 393210, 1, 0, 393211, 1, 0, 393212, 1, 0, 393213, 1, 0, 393214, 1, 0, 393215, 2, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327697, 5, 0, 458732, 536870917, 0, 458743, 1610612741, 0, 458751, 5, 0, 393233, 5, 0, 524268, 536870917, 0, 524279, 13, 0, 524287, 13, 0, 458769, 5, 0, 589804, 536870917, 0, 524305, 5, 0, 655340, 536870917, 0, 655359, 5, 0, 589841, 5, 0, 720876, 536870919, 0, 720877, 1, 0, 720878, 1, 0, 720879, 1, 0, 720880, 1, 0, 720881, 1, 0, 720882, 1, 0, 720883, 1, 0, 720884, 1, 0, 720885, 1, 0, 720886, 1, 0, 720887, 1, 0, 720888, 1, 0, 720889, 1, 0, 720890, 1, 0, 720891, 1, 0, 720892, 1, 0, 720893, 1, 0, 720894, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 7, 0 )
+tile_data = PoolIntArray( -1835015, 4, 0, -1835014, 1, 0, -1835013, 1, 0, -1835012, 1, 0, -1835011, 1, 0, -1835010, 1, 0, -1835009, 1, 0, -1900544, 1, 0, -1900543, 1, 0, -1900542, 1, 0, -1900541, 1, 0, -1900540, 1, 0, -1900539, 1, 0, -1900538, 1, 0, -1900537, 1, 0, -1900536, 1, 0, -1900535, 1, 0, -1900534, 1, 0, -1900533, 1, 0, -1900532, 536870916, 0, -1769480, 4, 0, -1769479, 7, 0, -1834996, 536870919, 0, -1834995, 536870916, 0, -1703945, 4, 0, -1703944, 7, 0, -1769459, 536870919, 0, -1769458, 536870916, 0, -1638410, 4, 0, -1638409, 7, 0, -1703922, 536870919, 0, -1703921, 536870916, 0, -1572874, 5, 0, -1638385, 5, 0, -1507338, 5, 0, -1572849, 5, 0, -1441802, 5, 0, -1507313, 5, 0, -1376266, 5, 0, -1441777, 5, 0, -1310730, 5, 0, -1376241, 5, 0, -1245194, 5, 0, -1310705, 5, 0, -1179658, 5, 0, -1245169, 5, 0, -1114122, 5, 0, -1179633, 5, 0, -1048586, 5, 0, -1114097, 5, 0, -983050, 536870919, 0, -983049, 536870916, 0, -1048562, 4, 0, -1048561, 7, 0, -917513, 536870919, 0, -917512, 536870916, 0, -983027, 4, 0, -983026, 7, 0, -851976, 5, 0, -851973, 4, 0, -851972, 1, 0, -851971, 1, 0, -851970, 1, 0, -851969, 1, 0, -917504, 1, 0, -917503, 1, 0, -917502, 1, 0, -917501, 1, 0, -917500, 1, 0, -917499, 1, 0, -917498, 1, 0, -917497, 1, 0, -917496, 1, 0, -917495, 1, 0, -917494, 1, 0, -917493, 1, 0, -917492, 1, 0, -917491, 7, 0, -786440, 5, 0, -786437, 5, 0, -720904, 5, 0, -720901, 5, 0, -655368, 5, 0, -655365, 5, 0, -589832, 5, 0, -589829, 5, 0, -524296, 5, 0, -524293, 5, 0, -458764, 4, 0, -458763, 1, 0, -458762, 1, 0, -458761, 1, 0, -458760, 7, 0, -458757, 536870919, 0, -458756, 1, 0, -458755, 1, 0, -458754, 1, 0, -458753, 2, 0, -524288, 1, 0, -524287, 1, 0, -524286, 1, 0, -524285, 1, 0, -524284, 1, 0, -524283, 1, 0, -524282, 1, 0, -524281, 1, 0, -524280, 1, 0, -524279, 1, 0, -524278, 1, 0, -524277, 1, 0, -524276, 1, 0, -524275, 1, 0, -524274, 1, 0, -524273, 1, 0, -524272, 1, 0, -524271, 536870916, 0, -393228, 5, 0, -393217, 5, 0, -458735, 5, 0, -327692, 5, 0, -327681, 5, 0, -393199, 5, 0, -262156, 5, 0, -262145, 5, 0, -327678, 1, 0, -327677, 1, 0, -327676, 1, 0, -327675, 1, 0, -327674, 1, 0, -327673, 1, 0, -327672, 1, 0, -327671, 536870916, 0, -327663, 5, 0, -196620, 5, 0, -196609, 5, 0, -262135, 5, 0, -262127, 5, 0, -131084, 5, 0, -131073, 536870919, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -196605, 1, 0, -196604, 1, 0, -196603, 1, 0, -196602, 1, 0, -196601, 1, 0, -196599, 5, 0, -196591, 5, 0, -65548, 5, 0, -131063, 5, 0, -131055, 5, 0, -12, 5, 0, -65527, 5, 0, -65519, 5, 0, 65524, 4, 0, 65525, 1, 0, 65526, 1, 0, 65527, 1, 0, 65528, 1, 0, 65529, 1, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 2, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 2, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 16, 1, 0, 17, 536870916, 0, 131060, 536870917, 0, 131071, 5, 0, 65545, 5, 0, 65553, 5, 0, 196596, 536870917, 0, 196607, 5, 0, 131081, 5, 0, 131089, 5, 0, 262132, 536870917, 0, 262143, 13, 0, 196617, 5, 0, 196625, 5, 0, 327668, 536870917, 0, 262153, 5, 0, 262161, 5, 0, 393196, 4, 0, 393197, 1, 0, 393198, 1, 0, 393199, 1, 0, 393200, 1, 0, 393201, 1, 0, 393202, 1, 0, 393203, 1, 0, 393204, 7, 0, 393207, 4, 0, 393208, 1, 0, 393209, 1, 0, 393210, 1, 0, 393211, 1, 0, 393212, 1, 0, 393213, 1, 0, 393214, 1, 0, 393215, 2, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327697, 5, 0, 458732, 536870917, 0, 458743, 1610612741, 0, 458751, 5, 0, 393233, 5, 0, 524268, 536870917, 0, 524279, 13, 0, 524287, 13, 0, 458769, 5, 0, 589804, 536870917, 0, 524305, 5, 0, 655340, 536870917, 0, 589841, 5, 0, 720876, 536870919, 0, 720877, 1, 0, 720878, 1, 0, 720879, 1, 0, 720880, 1, 0, 720881, 1, 0, 720882, 1, 0, 720883, 1, 0, 720884, 1, 0, 720885, 1, 0, 720886, 1, 0, 720887, 1, 0, 720888, 1, 0, 720889, 1, 0, 720890, 1, 0, 720891, 1, 0, 720892, 1, 0, 720893, 1, 0, 720894, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 7, 0 )
 
 [node name="Player" parent="nav/YSort" instance=ExtResource( 1 )]
-position = Vector2( -378, -745 )
+position = Vector2( -395, -665 )
 speed = 400.0
 
 [node name="Map" type="TileMap" parent="nav/YSort"]
@@ -423,8 +414,9 @@ position = Vector2( -255, -64 )
 position = Vector2( -610, -89 )
 
 [node name="Gangster" parent="nav/YSort" instance=ExtResource( 14 )]
-position = Vector2( 177, -1694 )
-scale = Vector2( 3, 3 )
+visible = false
+material = SubResource( 19 )
+position = Vector2( 177, -1940 )
 
 [node name="Lights" type="Node2D" parent="."]
 z_index = 5
@@ -443,34 +435,20 @@ visible = false
 position = Vector2( 320, -1376.5 )
 shape = SubResource( 6 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Goblin Fight" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -335.858, 531.073 )
-rotation = -3.14395
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goblin Fight"]
+position = Vector2( 480.645, 539.747 )
+rotation = 3.13924
+scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
-[node name="Light" parent="." instance=ExtResource( 12 )]
-material = SubResource( 9 )
-position = Vector2( 190, -1718 )
-rotation = 1.56905
-scale = Vector2( 1.89129, 18.4754 )
-texture = ExtResource( 11 )
-offset = Vector2( 0, 32.34 )
-energy = 1
-colour = Color( 1, 0, 0, 0.615686 )
-
-[node name="Light2" parent="." instance=ExtResource( 12 )]
-material = SubResource( 9 )
-position = Vector2( 875, -1717 )
-rotation = 2.20435
-scale = Vector2( 1.89129, 24.684 )
-texture = ExtResource( 11 )
-offset = Vector2( 0, 32.34 )
-energy = 1
-colour = Color( 1, 0, 0, 0.615686 )
-
 [node name="boss_fight_music" parent="." instance=ExtResource( 13 )]
+stream = ExtResource( 16 )
+
+[node name="normal" parent="." instance=ExtResource( 13 )]
+stream = ExtResource( 17 )
+autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 0.25
@@ -483,9 +461,38 @@ anims/RESET = SubResource( 12 )
 anims/sidet = SubResource( 13 )
 
 [node name="techno_boss_theme" parent="." instance=ExtResource( 15 )]
-position = Vector2( 174, -1840 )
+
+[node name="lightBeams" type="Node2D" parent="."]
+visible = false
+
+[node name="LightBeam2" parent="lightBeams" instance=ExtResource( 11 )]
+visible = false
+position = Vector2( -406, -1848 )
+
+[node name="Light" parent="lightBeams/LightBeam2" index="0"]
+material = SubResource( 15 )
+
+[node name="AnimationPlayer" parent="lightBeams/LightBeam2" index="1"]
+playback_speed = 0.2
+
+[node name="LightBeam3" parent="lightBeams" instance=ExtResource( 11 )]
+visible = false
+position = Vector2( 790, -1844 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+
+[node name="Light" parent="lightBeams/LightBeam3" index="0"]
+material = SubResource( 17 )
+
+[node name="AnimationPlayer" parent="lightBeams/LightBeam3" index="1"]
+playback_speed = 0.1
+
+[node name="LightBeam" parent="lightBeams" instance=ExtResource( 11 )]
+position = Vector2( 183, -1711 )
 
 [connection signal="body_entered" from="Arena" to="." method="_on_Arena_body_entered"]
-[connection signal="body_entered" from="Area2D" to="nav/YSort/Player" method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Goblin Fight" to="." method="_on_Goblin_Fight_body_entered"]
 
 [editable path="nav/YSort/Goblin"]
+[editable path="lightBeams/LightBeam2"]
+[editable path="lightBeams/LightBeam3"]

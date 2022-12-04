@@ -61,9 +61,10 @@ func _process(delta):
 			else:
 				cooldown = 2
 				$AnimationPlayer.play("Attack2")
-				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.9)
+				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.8)
 				$Tween.start()
 				yield(get_tree().create_timer(0.5), "timeout")
+				$Tween.stop_all()
 				var proj = load("res://Projectile.tscn").instance()
 				proj.texture = load("res://Assets/shockwave.png")
 				proj.lifetime = 0.5

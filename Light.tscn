@@ -35,3 +35,4 @@ material = SubResource( 7 )
 z_index = 10
 texture = SubResource( 5 )
 script = ExtResource( 1 )
+energy = 1

@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sbeam.png" type="Texture" id=1]
+[ext_resource path="res://Light.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Shader" id=8]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 581, 10 )
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 89.9 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "hehe"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 3.24901, 0.435275, 4, 0.435275 ),
+"update": 0,
+"values": [ 90.0, 0.0, -90.0, 0.0 ]
+}
+
+[node name="LightBeam" type="Node2D"]
+z_index = 100
+
+[node name="Light" parent="." instance=ExtResource( 2 )]
+material = SubResource( 9 )
+rotation = 1.56905
+scale = Vector2( 1.891, 18 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 32.34 )
+colour = Color( 1, 0, 0, 1 )
+
+[node name="LightBeam" type="Area2D" parent="Light"]
+rotation = -1.5708
+scale = Vector2( 0.0555556, 0.528821 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Light/LightBeam"]
+position = Vector2( -571, 0 )
+shape = SubResource( 12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.25
+anims/RESET = SubResource( 10 )
+anims/hehe = SubResource( 11 )
