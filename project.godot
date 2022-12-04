@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Sounds="*res://Sounds.gd"
+Music="*res://Music.tscn"
 
 [debug]
 
