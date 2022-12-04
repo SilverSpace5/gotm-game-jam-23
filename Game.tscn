@@ -250,7 +250,7 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource( 8 )
 shader_param/energy = 1
-shader_param/colour = Color( 1, 0, 0, 1 )
+shader_param/colour = Color( 1, 0, 0, 0.615686 )
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -419,7 +419,6 @@ rotation = -3.14395
 shape = SubResource( 7 )
 
 [node name="Light" parent="." instance=ExtResource( 12 )]
-modulate = Color( 1, 1, 1, 0.196078 )
 material = SubResource( 9 )
 position = Vector2( 169.931, -1847.87 )
 rotation = 1.56905
@@ -427,11 +426,12 @@ scale = Vector2( 1.89129, 18.4754 )
 texture = ExtResource( 11 )
 offset = Vector2( 0, 32.34 )
 energy = 1
-colour = Color( 1, 0, 0, 1 )
+colour = Color( 1, 0, 0, 0.615686 )
 
 [node name="boss_fight_music" parent="." instance=ExtResource( 13 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.25
 anims/RESET = SubResource( 10 )
 anims/hehe = SubResource( 11 )
 
