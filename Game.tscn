@@ -254,7 +254,6 @@ shader_param/colour = Color( 1, 0, 0, 1 )
 
 [sub_resource type="Animation" id=10]
 length = 0.001
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Light:rotation_degrees")
 tracks/0/interp = 1
@@ -267,21 +266,9 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 89.9 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.196078 ) ]
-}
 
 [sub_resource type="Animation" id=11]
-resource_name = "laser"
+resource_name = "hehe"
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -291,22 +278,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 3.24901, 0.435275, 4, 0.435275 ),
 "update": 0,
-"values": [ 90.0, -0.1, -90.0, 0.0, 90.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.9, 1, 1.1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.619608 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ 90.0, 0.0, -90.0, 0.0 ]
 }
 
 [node name="Game" type="Node2D"]

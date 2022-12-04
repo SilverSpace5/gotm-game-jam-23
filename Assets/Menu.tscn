@@ -133,7 +133,6 @@ script = null
 material = SubResource( 6 )
 
 [node name="Light" parent="Game" index="8"]
-modulate = Color( 1, 1, 1, 0.196078 )
 material = SubResource( 8 )
 scale = Vector2( 1, 18.8324 )
 
@@ -146,7 +145,6 @@ anims/laser = SubResource( 11 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
-current = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 25
