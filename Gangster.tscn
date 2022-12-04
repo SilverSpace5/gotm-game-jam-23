@@ -86,12 +86,7 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=7]
 radius = 105.03
 
-<<<<<<< Updated upstream
 [node name="Gangster" type="Sprite"]
-=======
-[node name="Sprite" type="Sprite"]
-rotation = 0.000994924
->>>>>>> Stashed changes
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -45.451 )

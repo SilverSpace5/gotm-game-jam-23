@@ -266,18 +266,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 89.9 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light:colour")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ) ]
-}
 
 [sub_resource type="Animation" id=11]
 resource_name = "hehe"
@@ -295,21 +283,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 90.0, 0.0, -90.0, 0.0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light:colour")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.5, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.85098, 0, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0.890196, 0, 1 ), Color( 0.00784314, 1, 0, 1 ), Color( 0, 0.941176, 0.898039, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0.329412, 0, 1 ), Color( 1, 0.890196, 0, 1 ), Color( 0.00784314, 1, 0, 1 ), Color( 0, 0.941176, 0.898039, 1 ), Color( 0.85098, 0, 1, 1 ), Color( 0, 0.941176, 0.898039, 1 ), Color( 0.85098, 0, 1, 1 ) ]
-}
 
 [node name="Game" type="Node2D"]
-rotation = 9.76448e-05
 script = ExtResource( 3 )
 
 [node name="Dark" type="Sprite" parent="."]
