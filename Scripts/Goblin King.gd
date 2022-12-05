@@ -9,12 +9,13 @@ var health = 20
 var hit = 0
 
 func _ready():
+	health = Music.stats["goblinKingHealth"]
 	idleTarget = position
 	$nav.connect("velocity_computed", self, "move")
 
 func _process(delta):
 	hit -= delta
-	$GoblinKing/Health.value += (100-health/20.0*100.0-$GoblinKing/Health.value)/5
+	$GoblinKing/Health.value += (100-health/Music.stats["goblinKingHealth"]*100.0-$GoblinKing/Health.value)/5
 	if health <= 0 and not $CollisionShape2D.disabled:
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
@@ -36,7 +37,7 @@ func _process(delta):
 		cooldown -= delta
 	if cooldown < 0:
 		if get_parent().get_node("Player").position.distance_to(position) < 150 and round(rand_range(0, 1)) == 1:
-			cooldown = 3
+			cooldown = Music.stats["goblinKingCooldown"]
 			$AnimationPlayer.play("Attack")
 			yield(get_tree().create_timer(0.25), "timeout")
 			var proj = load("res://Projectile.tscn").instance()
@@ -51,7 +52,7 @@ func _process(delta):
 		elif get_parent().get_parent().get_parent().arena:
 			randomize()
 			if round(rand_range(0, 3)) == 0:
-				cooldown = 3
+				cooldown = Music.stats["goblinKingCooldown"]
 				$AnimationPlayer.play("Attack3")
 				yield(get_tree().create_timer(0.5), "timeout")
 				for i in range(3):
@@ -59,7 +60,7 @@ func _process(delta):
 					goblin.position = Vector2(position.x + rand_range(-100, 100), position.y + rand_range(-100, 100))
 					get_parent().add_child(goblin)
 			else:
-				cooldown = 3
+				cooldown = Music.stats["goblinKingCooldown"]
 				$AnimationPlayer.play("Attack2")
 				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.8)
 				$Tween.start()

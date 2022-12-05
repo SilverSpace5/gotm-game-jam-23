@@ -9,7 +9,7 @@ var smashing = false
 var phase = 0
 
 func reset():
-	health = 20
+	health = Music.stats["boss2Health"]
 	phase = 0
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").play("RESET")
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").play("hehe")
@@ -22,7 +22,9 @@ func reset():
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam3/Light/LightBeam").monitorable = false
 
 func _ready():
-	pass
+	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][0]
+	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam2/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][1]
+	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam3/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][2]
 
 func loop():
 	move = round(rand_range(1,2))
@@ -38,7 +40,7 @@ func _physics_process(delta):
 	if not get_parent().get_parent().get_parent().boss2:
 		return
 	hit -= delta
-	$Health.value += (100-health/20.0*100.0-$Health.value)/5
+	$Health.value += (100-health/Music.stats["boss2Health"]*100.0-$Health.value)/5
 	if health <= 0 and not $Hitbox/CollisionShape2D.disabled:
 		$Hitbox/CollisionShape2D.disabled = true
 		$Extra.play("Die")
@@ -50,7 +52,7 @@ func _physics_process(delta):
 		get_parent().get_parent().get_parent().boss2Defeat()
 		queue_free()
 	
-	if health <= 15 and phase == 0:
+	if health <= Music.stats["boss2Health"]/4*3 and phase == 0:
 		phase = 1
 		smashing = true
 		$AnimationPlayer.play("crush")
@@ -68,7 +70,7 @@ func _physics_process(delta):
 		get_parent().add_child(proj)
 		yield($AnimationPlayer, "animation_finished")
 		smashing = false
-	if health <= 10 and phase == 1:
+	if health <= Music.stats["boss2Health"]/2 and phase == 1:
 		phase = 2
 		smashing = true
 		$AnimationPlayer.play("crush")

@@ -100,7 +100,10 @@ func _process(delta):
 			if boss2:
 				get_parent().get_node("Gangster").reset()
 			else:
-				get_parent().get_node("Goblin King").health = 20
+				for child in get_parent().get_children():
+					if "Goblin" in child.name and not "King" in child.name:
+						child.queue_free()
+				get_parent().get_node("Goblin King").health = Music.stats["goblinKingHealth"]
 				get_parent().get_node("Goblin King").position = Vector2(87, -1361)
 	$Health.value += (100-health/maxHealth*100.0-$Health.value)/5
 	minecart = false

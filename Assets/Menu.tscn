@@ -8,25 +8,6 @@
 [ext_resource path="res://Assets/Menu.gd" type="Script" id=6]
 [ext_resource path="res://Assets/default.tres" type="DynamicFont" id=7]
 
-[sub_resource type="Shader" id=5]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform bool flash = false;
-
-void fragment() {
-	if (flash) {
-		COLOR = vec4(1.0, 1.0, 1.0, texture(TEXTURE, UV).a);
-	} else {
-		COLOR = texture(TEXTURE, UV);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-resource_local_to_scene = true
-shader = SubResource( 5 )
-shader_param/flash = false
-
 [sub_resource type="Shader" id=16]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
@@ -113,6 +94,25 @@ shader = SubResource( 14 )
 shader_param/energy = 1
 shader_param/colour = Color( 1, 0, 0, 1 )
 
+[sub_resource type="Shader" id=18]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=19]
+resource_local_to_scene = true
+shader = SubResource( 18 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
+
 [sub_resource type="DynamicFont" id=1]
 size = 60
 outline_size = 3
@@ -168,10 +168,7 @@ script = ExtResource( 6 )
 [node name="Player" parent="Game/nav/YSort" index="2"]
 script = null
 
-[node name="Goblin" parent="Game/nav/YSort/Goblin" index="0"]
-material = SubResource( 6 )
-
-[node name="Gangster" parent="Game/nav/YSort" index="15"]
+[node name="Gangster" parent="Game/nav/YSort" index="5"]
 material = SubResource( 17 )
 
 [node name="AnimationPlayer" parent="Game" index="10"]
@@ -182,6 +179,9 @@ material = SubResource( 13 )
 
 [node name="Light" parent="Game/lightBeams/LightBeam3" index="0"]
 material = SubResource( 15 )
+
+[node name="Light" parent="Game/lightBeams/LightBeam" index="0"]
+material = SubResource( 19 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
@@ -221,7 +221,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Play" type="Button" parent="UI/Menu"]
-margin_right = 168.0
+margin_right = 388.0
 margin_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -235,7 +235,7 @@ text = "Play"
 
 [node name="Credits" type="Button" parent="UI/Menu"]
 margin_top = 62.0
-margin_right = 168.0
+margin_right = 388.0
 margin_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -246,6 +246,20 @@ custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 3 )
 enabled_focus_mode = 0
 text = "Credits"
+
+[node name="Difficulty" type="Button" parent="UI/Menu"]
+margin_top = 124.0
+margin_right = 388.0
+margin_bottom = 182.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+custom_fonts/font = SubResource( 4 )
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 3 )
+enabled_focus_mode = 0
+text = "Difficulty - Easy"
 
 [node name="Credits" type="VBoxContainer" parent="UI"]
 visible = false
@@ -292,9 +306,10 @@ anims/menu = SubResource( 3 )
 
 [connection signal="pressed" from="UI/Menu/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="UI/Menu/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="pressed" from="UI/Menu/Difficulty" to="." method="_on_Difficulty_pressed"]
 [connection signal="pressed" from="UI/Credits/Back" to="." method="_on_Back_pressed"]
 
 [editable path="Game"]
-[editable path="Game/nav/YSort/Goblin"]
 [editable path="Game/lightBeams/LightBeam2"]
 [editable path="Game/lightBeams/LightBeam3"]
+[editable path="Game/lightBeams/LightBeam"]
