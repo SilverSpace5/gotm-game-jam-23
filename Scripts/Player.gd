@@ -28,6 +28,7 @@ func cutscene():
 	health = maxHealth
 	targetPos = Vector2(175, -1600)
 	yield(get_tree().create_timer(3.5), "timeout")
+	targetZoom = Vector2(1.25, 1.25)
 	inCutscene = false
 
 func setMessage(message, showTime):
@@ -84,7 +85,7 @@ func _process(delta):
 		$Camera2D.zoom += (targetZoom-$Camera2D.zoom)/10
 	else:
 		$Camera2D.position += (Vector2(0, 0)-$Camera2D.position)/10
-		$Camera2D.zoom += (Vector2(1, 1)-$Camera2D.zoom)/10
+		$Camera2D.zoom += (targetZoom-$Camera2D.zoom)/10
 	dashing -= delta
 	cooldown -= delta
 	dashCooldown -= delta
