@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/cloth2.ogg-750aa68072debd2d19834f363b14116c.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Dash/cloth2.ogg"
+dest_files=[ "res://.import/cloth2.ogg-750aa68072debd2d19834f363b14116c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

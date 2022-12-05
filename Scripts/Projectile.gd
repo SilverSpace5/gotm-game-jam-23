@@ -25,8 +25,10 @@ func collide(body):
 	for name2 in ignore:
 		if body.name in name2:
 			return
+	var hitEntity = false
 	if not "slash-goblin" in name and not "shockwave" in name:
-		if "Goblin" in body.name:
+		if "Goblin" in body.name or "Gangster" in body.name:
+			hitEntity = true
 			if body.hit < 0:
 				body.health -= 1
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*10
@@ -35,10 +37,15 @@ func collide(body):
 	else:
 		if "Player" in body.name:
 			if body.hit < 0:
+				hitEntity = true
 				body.health -= 1
 				body.hit = 0.5
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*100
 				body.get_node("Extra").play("Hit")
+	if hitEntity:
+		Sounds.playSound("res://Assets/Sounds/Hit/Hit " + str(round(rand_range(1, 4))) + ".wav")
+	elif not "shockwave" in name:
+		Sounds.playSound("res://Assets/Sounds/HitWall/impactPlank_medium_00" + str(round(rand_range(0, 3))) + ".ogg")
 	if not "shockwave" in name:
 		queue_free()
 
@@ -50,5 +57,5 @@ func remove():
 	queue_free()
 
 func _on_Projectile_area_entered(area):
-	if "Goblin King" in area.get_parent().name:
+	if "Goblin King" in area.get_parent().name or "Gangster" in area.get_parent().name:
 		collide(area.get_parent())

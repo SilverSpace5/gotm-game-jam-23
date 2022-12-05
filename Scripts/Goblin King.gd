@@ -4,7 +4,7 @@ export (float) var speed = 10
 var vel = Vector2.ZERO
 var idleTarget = position
 var move = Vector2.ZERO
-var cooldown = -1
+var cooldown = 2
 var health = 30
 var hit = 0
 
@@ -32,7 +32,8 @@ func _process(delta):
 		target = $nav.get_next_location()
 		vel += position.direction_to(target)*speed
 	
-	cooldown -= delta
+	if get_parent().get_parent().get_parent().arena:
+		cooldown -= delta
 	if cooldown < 0:
 		if get_parent().get_node("Player").position.distance_to(position) < 150 and round(rand_range(0, 1)) == 1:
 			cooldown = 1
@@ -60,9 +61,10 @@ func _process(delta):
 			else:
 				cooldown = 2
 				$AnimationPlayer.play("Attack2")
-				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.9)
+				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.8)
 				$Tween.start()
 				yield(get_tree().create_timer(0.5), "timeout")
+				$Tween.stop_all()
 				var proj = load("res://Projectile.tscn").instance()
 				proj.texture = load("res://Assets/shockwave.png")
 				proj.lifetime = 0.5
