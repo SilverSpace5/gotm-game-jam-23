@@ -5,7 +5,7 @@ var vel = Vector2.ZERO
 var idleTarget = position
 var move = Vector2.ZERO
 var cooldown = 2
-var health = 30
+var health = 20
 var hit = 0
 
 func _ready():
@@ -14,7 +14,7 @@ func _ready():
 
 func _process(delta):
 	hit -= delta
-	$GoblinKing/Health.value += (100-health/30.0*100.0-$GoblinKing/Health.value)/5
+	$GoblinKing/Health.value += (100-health/20.0*100.0-$GoblinKing/Health.value)/5
 	if health <= 0 and not $CollisionShape2D.disabled:
 		$CollisionShape2D.disabled = true
 		$Extra.play("Die")
@@ -36,7 +36,7 @@ func _process(delta):
 		cooldown -= delta
 	if cooldown < 0:
 		if get_parent().get_node("Player").position.distance_to(position) < 150 and round(rand_range(0, 1)) == 1:
-			cooldown = 1
+			cooldown = 3
 			$AnimationPlayer.play("Attack")
 			yield(get_tree().create_timer(0.25), "timeout")
 			var proj = load("res://Projectile.tscn").instance()
@@ -59,7 +59,7 @@ func _process(delta):
 					goblin.position = Vector2(position.x + rand_range(-100, 100), position.y + rand_range(-100, 100))
 					get_parent().add_child(goblin)
 			else:
-				cooldown = 2
+				cooldown = 3
 				$AnimationPlayer.play("Attack2")
 				$Tween.interpolate_property(self, "position", position, get_parent().get_node("Player").position, 0.8)
 				$Tween.start()

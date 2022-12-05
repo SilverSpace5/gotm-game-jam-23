@@ -43,7 +43,7 @@ func collide(body):
 				body.vel = Vector2(1, 0).rotated(deg2rad(dir))*speed*100
 				body.get_node("Extra").play("Hit")
 	if hitEntity:
-		Sounds.playSound("res://Assets/Sounds/Hit/Hit " + str(round(rand_range(1, 4))) + ".wav")
+		Sounds.playSound("res://Assets/Sounds/Hit/hit " + str(round(rand_range(1, 4))) + ".wav")
 	elif not "shockwave" in name:
 		Sounds.playSound("res://Assets/Sounds/HitWall/impactPlank_medium_00" + str(round(rand_range(0, 3))) + ".ogg")
 	if not "shockwave" in name:

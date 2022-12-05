@@ -2,14 +2,14 @@ extends Sprite
 
 var move
 var atc = 0
-var health = 40
+var health = 20
 var hit = 0
 var vel = Vector2(0, 0)
 var smashing = false
 var phase = 0
 
 func reset():
-	health = 40
+	health = 20
 	phase = 0
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").play("RESET")
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").play("hehe")
@@ -38,7 +38,7 @@ func _physics_process(delta):
 	if not get_parent().get_parent().get_parent().boss2:
 		return
 	hit -= delta
-	$Health.value += (100-health/40.0*100.0-$Health.value)/5
+	$Health.value += (100-health/20.0*100.0-$Health.value)/5
 	if health <= 0 and not $Hitbox/CollisionShape2D.disabled:
 		$Hitbox/CollisionShape2D.disabled = true
 		$Extra.play("Die")
@@ -50,7 +50,7 @@ func _physics_process(delta):
 		get_parent().get_parent().get_parent().boss2Defeat()
 		queue_free()
 	
-	if health <= 30 and phase == 0:
+	if health <= 15 and phase == 0:
 		phase = 1
 		smashing = true
 		$AnimationPlayer.play("crush")
@@ -68,7 +68,7 @@ func _physics_process(delta):
 		get_parent().add_child(proj)
 		yield($AnimationPlayer, "animation_finished")
 		smashing = false
-	if health <= 20 and phase == 1:
+	if health <= 10 and phase == 1:
 		phase = 2
 		smashing = true
 		$AnimationPlayer.play("crush")

@@ -1,6 +1,6 @@
 extends Node
 
-func playSound(path, volume=0) -> AudioStreamPlayer:
+func playSound(path, volume=-25) -> AudioStreamPlayer:
 	if Music.mute:
 		return null
 	var sound = AudioStreamPlayer.new()

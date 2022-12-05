@@ -12,15 +12,27 @@ func _process(delta):
 		$boss_fight_music.volume_db = -100
 		$techno_boss_theme.volume_db = -100
 	else:
-		$normal.volume_db = 0
-		$boss_fight_music.volume_db = 0
-		$techno_boss_theme.volume_db = 0
+		$normal.volume_db = -25
+		$boss_fight_music.volume_db = -25
+		$techno_boss_theme.volume_db = -25
 
+func spawnGoblin(pos:Vector2):
+	var goblin = load("res://Goblin.tscn").instance()
+	goblin.position = pos
+	$nav/YSort.add_child(goblin)
+	
 func _ready():
 	$Lights.visible = true
 	$Lights.update = true
 	$boss_fight_music.playing = false
 	$techno_boss_theme.playing = false
+	yield(get_tree().create_timer(1), "timeout")
+	$normal.playing = true
+	spawnGoblin(Vector2(500, 500))
+	spawnGoblin(Vector2(750, 150))
+	spawnGoblin(Vector2(250, -75))
+	spawnGoblin(Vector2(-500, -250))
+	spawnGoblin(Vector2(-350, -250))
 
 func boss2Defeat():
 	$nav/YSort/Player.setMessage("You Finished!", 2)
@@ -68,4 +80,4 @@ func _on_Area2D_body_entered(body):
 
 func _on_Goblin_Fight_body_entered(body):
 	if body.name == "Player":
-		body.setMessage("Use 1 and 2 to switch weapons\nUse Left Click/C/Button A on Controller to Attack\n1 - Sword, 2 - Bow", 8)
+		body.setMessage("Use 1 and 2 to switch weapons\nUse Left Click/C to Attack\n1 - Sword, 2 - Bow", 8)

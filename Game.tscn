@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/World.tres" type="TileSet" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Scripts/Lights.gd" type="Script" id=5]
 [ext_resource path="res://default_env.tres" type="Environment" id=6]
 [ext_resource path="res://Assets/pixil-frame-0 (3).png" type="Texture" id=7]
-[ext_resource path="res://Goblin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/tiles.png" type="Texture" id=9]
 [ext_resource path="res://Goblin King.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LightBeam.tscn" type="PackedScene" id=11]
@@ -209,25 +208,6 @@ outlines = [ PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 ) ]
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="Shader" id=4]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform bool flash = false;
-
-void fragment() {
-	if (flash) {
-		COLOR = vec4(1.0, 1.0, 1.0, texture(TEXTURE, UV).a);
-	} else {
-		COLOR = texture(TEXTURE, UV);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-resource_local_to_scene = true
-shader = SubResource( 4 )
-shader_param/flash = false
-
 [sub_resource type="Shader" id=18]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
@@ -307,6 +287,25 @@ shader = SubResource( 16 )
 shader_param/energy = 1
 shader_param/colour = Color( 1, 0, 0, 1 )
 
+[sub_resource type="Shader" id=20]
+resource_local_to_scene = true
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.1.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_add;
+uniform float energy = 1.0;
+uniform vec4 colour = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV) * texture(TEXTURE, UV)*colour*energy + texture(TEXTURE, UV)*colour*energy*0.35;
+}"
+
+[sub_resource type="ShaderMaterial" id=21]
+resource_local_to_scene = true
+shader = SubResource( 20 )
+shader_param/energy = 1
+shader_param/colour = Color( 1, 0, 0, 1 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -380,39 +379,6 @@ tile_data = PoolIntArray( -3538956, 0, 0, -3538955, 0, 0, -3538954, 0, 0, -35389
 [node name="Goblin King" parent="nav/YSort" instance=ExtResource( 10 )]
 position = Vector2( 87, -1361 )
 
-[node name="Goblin" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 275, -213 )
-
-[node name="Goblin" parent="nav/YSort/Goblin" index="0"]
-material = SubResource( 5 )
-
-[node name="Goblin7" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 614, 455 )
-
-[node name="Goblin2" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( -334, -125 )
-
-[node name="Goblin3" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 749, -220 )
-
-[node name="Goblin4" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 207, -97 )
-
-[node name="Goblin5" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( -569, -301 )
-
-[node name="Goblin9" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( -230, -271 )
-
-[node name="Goblin11" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( 57, -291 )
-
-[node name="Goblin12" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( -255, -64 )
-
-[node name="Goblin13" parent="nav/YSort" instance=ExtResource( 8 )]
-position = Vector2( -610, -89 )
-
 [node name="Gangster" parent="nav/YSort" instance=ExtResource( 14 )]
 visible = false
 material = SubResource( 19 )
@@ -438,9 +404,9 @@ shape = SubResource( 6 )
 [node name="Goblin Fight" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goblin Fight"]
+visible = false
 position = Vector2( 480.645, 539.747 )
 rotation = 3.13924
-scale = Vector2( 1, 1 )
 shape = SubResource( 7 )
 
 [node name="boss_fight_music" parent="." instance=ExtResource( 13 )]
@@ -448,7 +414,6 @@ stream = ExtResource( 16 )
 
 [node name="normal" parent="." instance=ExtResource( 13 )]
 stream = ExtResource( 17 )
-autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 0.25
@@ -473,7 +438,7 @@ position = Vector2( -406, -1848 )
 material = SubResource( 15 )
 
 [node name="AnimationPlayer" parent="lightBeams/LightBeam2" index="1"]
-playback_speed = 0.2
+playback_speed = 0.1
 
 [node name="LightBeam3" parent="lightBeams" instance=ExtResource( 11 )]
 visible = false
@@ -485,14 +450,20 @@ scale = Vector2( 1, -1 )
 material = SubResource( 17 )
 
 [node name="AnimationPlayer" parent="lightBeams/LightBeam3" index="1"]
-playback_speed = 0.1
+playback_speed = 0.05
 
 [node name="LightBeam" parent="lightBeams" instance=ExtResource( 11 )]
 position = Vector2( 183, -1711 )
 
+[node name="Light" parent="lightBeams/LightBeam" index="0"]
+material = SubResource( 21 )
+
+[node name="AnimationPlayer" parent="lightBeams/LightBeam" index="1"]
+playback_speed = 0.13
+
 [connection signal="body_entered" from="Arena" to="." method="_on_Arena_body_entered"]
 [connection signal="body_entered" from="Goblin Fight" to="." method="_on_Goblin_Fight_body_entered"]
 
-[editable path="nav/YSort/Goblin"]
 [editable path="lightBeams/LightBeam2"]
 [editable path="lightBeams/LightBeam3"]
+[editable path="lightBeams/LightBeam"]

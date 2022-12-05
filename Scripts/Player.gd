@@ -22,7 +22,7 @@ var dashCooldown = 0
 onready var spawn = position
 
 func cutscene():
-	setMessage("Use Space/X/X on Controller to Dash", 4)
+	setMessage("Use Space/X to Dash", 4)
 	inCutscene = true
 	boss2 = true
 	health = maxHealth
@@ -76,7 +76,7 @@ func setBoss(message, showTime):
 
 func _ready():
 	health = maxHealth
-	setMessage("Use WASD/Arrow Keys/Left Joystick to move", 4)
+	setMessage("Use WASD/Arrow Keys to move", 4)
 
 func _process(delta):
 	if inCutscene:
@@ -92,7 +92,7 @@ func _process(delta):
 	$dash.visible = dashing > 0
 	if hit < -3:
 		health += 0.01
-		health = clamp(health, 0, maxHealth)
+		health = clamp(health, -3, maxHealth)
 	if health <= 0:
 		position = spawn
 		health = maxHealth
@@ -100,12 +100,9 @@ func _process(delta):
 			if boss2:
 				get_parent().get_node("Gangster").reset()
 			else:
-				get_parent().get_node("Goblin King").health = 30
+				get_parent().get_node("Goblin King").health = 20
 				get_parent().get_node("Goblin King").position = Vector2(87, -1361)
 	$Health.value += (100-health/maxHealth*100.0-$Health.value)/5
-	var bpo = get_parent().get_parent().get_parent().get_node("BPO")
-	var currentBPO = bpo.get_cellv(bpo.world_to_map((position-Vector2(0, 32))/4))
-	minecart = currentBPO != -1
 	minecart = false
 	var oldRot = $Slots.rotation
 	
@@ -308,4 +305,4 @@ func _on_LaserHitbox_area_entered(area):
 		health -= 1
 		hit = 0.5
 		get_node("Extra").play("Hit")
-		Sounds.playSound("res://Assets/Sounds/Hit/Hit " + str(round(rand_range(1, 4))) + ".wav")
+		Sounds.playSound("res://Assets/Sounds/Hit/hit " + str(round(rand_range(1, 4))) + ".wav")
