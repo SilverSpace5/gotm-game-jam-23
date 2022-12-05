@@ -145,6 +145,7 @@ anims/laser = SubResource( 11 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 300 )
+current = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 25
