@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://the 2 goblins (bossfight).mp3" type="AudioStream" id=1]
+[ext_resource path="res://goblinBoss.mp3" type="AudioStream" id=1]
 
 [node name="boss_fight_music" type="AudioStreamPlayer"]
 stream = ExtResource( 1 )

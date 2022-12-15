@@ -22,6 +22,7 @@ func reset():
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam3/Light/LightBeam").monitorable = false
 
 func _ready():
+	health = Music.stats["boss2Health"]
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][0]
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam2/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][1]
 	get_parent().get_parent().get_parent().get_node("lightBeams/LightBeam3/AnimationPlayer").playback_speed = Music.stats["lightBeamSpeed"][2]

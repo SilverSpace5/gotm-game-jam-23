@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/World.tres" type="TileSet" id=2]
@@ -7,14 +7,15 @@
 [ext_resource path="res://Scripts/Lights.gd" type="Script" id=5]
 [ext_resource path="res://default_env.tres" type="Environment" id=6]
 [ext_resource path="res://Assets/pixil-frame-0 (3).png" type="Texture" id=7]
+[ext_resource path="res://boss2.mp3" type="AudioStream" id=8]
 [ext_resource path="res://Assets/tiles.png" type="Texture" id=9]
 [ext_resource path="res://Goblin King.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LightBeam.tscn" type="PackedScene" id=11]
+[ext_resource path="res://goblinBoss.mp3" type="AudioStream" id=12]
 [ext_resource path="res://boss_fight_music.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Gangster.tscn" type="PackedScene" id=14]
 [ext_resource path="res://techno_boss_theme.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Goblin Boss.mp3" type="AudioStream" id=16]
-[ext_resource path="res://normal music.mp3" type="AudioStream" id=17]
+[ext_resource path="res://normalMusic.mp3" type="AudioStream" id=16]
 
 [sub_resource type="TileSet" id=1]
 0/name = "pixil-frame-0 (3).png 0"
@@ -410,10 +411,10 @@ rotation = 3.13924
 shape = SubResource( 7 )
 
 [node name="boss_fight_music" parent="." instance=ExtResource( 13 )]
-stream = ExtResource( 16 )
+stream = ExtResource( 12 )
 
 [node name="normal" parent="." instance=ExtResource( 13 )]
-stream = ExtResource( 17 )
+stream = ExtResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 0.25
@@ -426,6 +427,7 @@ anims/RESET = SubResource( 12 )
 anims/sidet = SubResource( 13 )
 
 [node name="techno_boss_theme" parent="." instance=ExtResource( 15 )]
+stream = ExtResource( 8 )
 
 [node name="lightBeams" type="Node2D" parent="."]
 visible = false
